@@ -23,7 +23,7 @@ module.exports = {
     'import/no-internal-modules': [
       'error',
       {
-        allow: ['zustand/*', 'react-dom/*', '~/features/*/*'],
+        allow: ['react-dom/*', '~/features/*/*'],
       },
     ],
   },
