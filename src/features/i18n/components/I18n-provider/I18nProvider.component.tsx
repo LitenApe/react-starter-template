@@ -19,7 +19,7 @@ export function I18nProvider(props: PropsWithChildren) {
 }
 
 function useViewController(props: ComponentProps<typeof I18nProvider>) {
-  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+  const [, forceUpdate] = useReducer((x: number) => x + 1, 0);
 
   useEffect(() => {
     translationService.subscribe(forceUpdate);

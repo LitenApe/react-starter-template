@@ -1,5 +1,5 @@
-export function isEmpty(value: unknown) {
-  if (value === null) {
+export function isEmpty(value: unknown): value is never {
+  if (value === null || value === undefined) {
     return true;
   }
 
@@ -11,5 +11,5 @@ export function isEmpty(value: unknown) {
     return Object.keys(value).length === 0;
   }
 
-  throw new Error(`Supplied [value=${value}] is not supported by 'isEmpty'`);
+  throw new Error(`Supplied value is not supported by 'isEmpty'`);
 }

@@ -2,10 +2,7 @@ import { isDefined, isUndefined } from '~/features/common/utility';
 
 import { RouteObject } from 'react-router-dom';
 
-export function getPath(
-  routes: Array<RouteObject>,
-  alias: string,
-): string | null {
+export function getPath(routes: RouteObject[], alias: string): string | null {
   return routes.reduce((acc: string | null, cur) => {
     if (acc !== null) {
       return acc;

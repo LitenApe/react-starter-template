@@ -2,16 +2,16 @@ import { ComponentProps, ComponentPropsWithoutRef, ElementType } from 'react';
 
 import { useTranslations } from '~/features/i18n/hooks';
 
-type AsProps<T extends ElementType> = {
+interface AsProps<T extends ElementType> {
   as?: T;
-};
+}
 
 type DynamicProps<T extends ElementType> = AsProps<T> &
   ComponentPropsWithoutRef<T>;
 
-type Props = {
+interface Props {
   text: string;
-};
+}
 
 export function I18n<T extends ElementType>(props: Props & DynamicProps<T>) {
   const { translation, As, ...htmlProps } = useViewController(props);

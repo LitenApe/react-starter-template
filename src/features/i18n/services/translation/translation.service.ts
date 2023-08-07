@@ -8,9 +8,9 @@ type Translations = Record<string, string>;
 
 export class TranslationService implements Subscribable<Translations> {
   #languageService: LanguageService;
-  #subscribers: Array<(translations: Translations) => void> = [];
+  #subscribers: ((translations: Translations) => void)[] = [];
 
-  #loaded: Array<string> = [];
+  #loaded: string[] = [];
   #translations: Record<Lang, Translations> = {
     [Lang.EN]: {},
     [Lang.NB]: {},
@@ -24,7 +24,9 @@ export class TranslationService implements Subscribable<Translations> {
 
   addTranslation = async (part: string, language?: Lang) => {
     const lang = language ?? this.#languageService.getLanguage();
-    const translations = await request.get(`/i18n/${part}/${lang}.json`);
+    const translations = await request.get<Translations>(
+      `/i18n/${part}/${lang}.json`,
+    );
     this.#translations[lang] = {
       ...this.#translations[lang],
       ...translations,
@@ -35,13 +37,23 @@ export class TranslationService implements Subscribable<Translations> {
     }
   };
 
-  #updateTranslations = async (lang: Lang) => {
-    if (isEmpty(this.#translations[lang])) {
-      const jobs = this.#loaded.map((part) => this.addTranslation(part, lang));
-      await Promise.all(jobs);
-    }
+  #updateTranslations = (lang: Lang) => {
+    const getMissingTranslations = async () => {
+      if (isEmpty(this.#translations[lang])) {
+        const jobs = this.#loaded.map((part) =>
+          this.addTranslation(part, lang),
+        );
+        await Promise.all(jobs);
+      }
+    };
 
-    this.#notify(this.#translations[lang]);
+    getMissingTranslations()
+      .catch(() => {
+        console.error('Unable to update translations!');
+      })
+      .finally(() => {
+        this.#notify(this.#translations[lang]);
+      });
   };
 
   getTranslation = (key: string) => {
@@ -75,6 +87,8 @@ export class TranslationService implements Subscribable<Translations> {
   };
 
   #notify = (translations: Translations) => {
-    this.#subscribers.map((cb) => cb(translations));
+    this.#subscribers.map((cb) => {
+      cb(translations);
+    });
   };
 }

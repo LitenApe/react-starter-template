@@ -3,9 +3,9 @@ import { ComponentProps, PropsWithChildren } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { getPathFromAlias } from '~/features/navigation/utility';
 
-type Props = {
+interface Props {
   to: string;
-};
+}
 
 export function Link(props: PropsWithChildren<Props>) {
   const { to, children } = useViewController(props);

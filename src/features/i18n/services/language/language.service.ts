@@ -6,7 +6,7 @@ const STORAGE_KEY = 'PREFERRED_LANGUAGE';
 
 export class LanguageService implements Subscribable<Lang> {
   #preferredLanguage: Lang;
-  #subscribers: Array<(lang: Lang) => void> = [];
+  #subscribers: ((lang: Lang) => void)[] = [];
 
   constructor(defaultLanguage: Lang) {
     this.#preferredLanguage = defaultLanguage;
@@ -63,6 +63,8 @@ export class LanguageService implements Subscribable<Lang> {
   };
 
   #notify = (lang: Lang) => {
-    this.#subscribers.map((cb) => cb(lang));
+    this.#subscribers.map((cb) => {
+      cb(lang);
+    });
   };
 }

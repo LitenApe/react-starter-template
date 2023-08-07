@@ -27,7 +27,13 @@ function useViewController() {
   > | null>(null);
 
   useEffect(() => {
-    appStartup().finally(() => setRouter(createBrowserRouter(routes)));
+    appStartup()
+      .catch(() => {
+        console.error('Unable to start up the application properly!');
+      })
+      .finally(() => {
+        setRouter(createBrowserRouter(routes));
+      });
   }, []);
 
   return { router };
