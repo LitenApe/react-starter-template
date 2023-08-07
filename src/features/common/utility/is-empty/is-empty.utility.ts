@@ -1,5 +1,10 @@
 export function isEmpty(value: unknown): value is never {
-  if (value === null || value === undefined) {
+  if (
+    value === null ||
+    value === undefined ||
+    typeof value === 'number' ||
+    typeof value === 'boolean'
+  ) {
     return true;
   }
 

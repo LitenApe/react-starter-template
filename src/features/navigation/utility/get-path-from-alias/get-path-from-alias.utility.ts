@@ -1,4 +1,4 @@
-import { getPath } from './get-path.helper';
+import { getPath } from './get-path.utility';
 import { isNull } from '~/features/common/utility';
 import { routes } from '~/features/navigation/router';
 
