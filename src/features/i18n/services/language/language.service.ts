@@ -9,13 +9,12 @@ export class LanguageService implements Subscribable<Lang> {
   #subscribers: Array<(lang: Lang) => void> = [];
 
   constructor(defaultLanguage: Lang) {
-    const storedLanguage = this.#retrieveLanguage();
     this.#preferredLanguage = defaultLanguage;
-
-    if (isNull(storedLanguage)) {
-      this.#saveLanguage(defaultLanguage);
-    }
   }
+
+  setPreferredLanguage = (lang: Lang) => {
+    this.#preferredLanguage = lang;
+  };
 
   #saveLanguage = (lang: Lang) => {
     localStorage.setItem(STORAGE_KEY, lang);

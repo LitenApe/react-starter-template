@@ -1,5 +1,4 @@
 import { RootPage } from '~/features/common/pages';
-import { createBrowserRouter } from 'react-router-dom';
 import { rootAliases } from './aliases.constant';
 import { translationService } from '~/features/i18n/services';
 
@@ -15,5 +14,3 @@ export const routes = [
     children: [],
   },
 ];
-
-export const router = createBrowserRouter(routes);

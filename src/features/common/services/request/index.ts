@@ -1,1 +1,1 @@
-export { request } from './requests';
+export { request } from './requests.service';
