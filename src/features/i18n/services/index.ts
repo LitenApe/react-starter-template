@@ -5,3 +5,4 @@ import { TranslationService } from './translation';
 export const languageService = new LanguageService(Lang.EN);
 export const translationService = new TranslationService(languageService);
 export { TranslationService, LanguageService, Lang };
+export type { TextKey } from './translation';

@@ -32,7 +32,7 @@ module.exports = {
     'import/no-internal-modules': [
       'error',
       {
-        allow: ['react-dom/*', '~/features/*/*'],
+        allow: ['react-dom/*', '~/features/*/*', 'public/**/*'],
       },
     ],
   },

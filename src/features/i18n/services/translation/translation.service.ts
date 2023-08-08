@@ -1,10 +1,9 @@
 import { Lang, LanguageService } from '~/features/i18n/services';
+import { TextKey, Translations } from './domain';
 import { isEmpty, isUndefined } from '~/features/common/utility';
 
 import { Subscribable } from '~/features/common/types';
 import { request } from '~/features/common/services';
-
-type Translations = Record<string, string>;
 
 export class TranslationService implements Subscribable<Translations> {
   #languageService: LanguageService;
@@ -12,8 +11,11 @@ export class TranslationService implements Subscribable<Translations> {
 
   #loaded: string[] = [];
   #translations: Record<Lang, Translations> = {
+    // @ts-expect-error initial state, should be populated through `addTranslations`
     [Lang.EN]: {},
+    // @ts-expect-error initial state, should be populated through `addTranslations`
     [Lang.NB]: {},
+    // @ts-expect-error initial state, should be populated through `addTranslations`
     [Lang.SV]: {},
   };
 
@@ -56,7 +58,7 @@ export class TranslationService implements Subscribable<Translations> {
       });
   };
 
-  getTranslation = (key: string) => {
+  getTranslation = (key: TextKey) => {
     const lang = this.#languageService.getLanguage();
     const translations = this.#translations[lang];
     const text = translations[key];
@@ -68,7 +70,7 @@ export class TranslationService implements Subscribable<Translations> {
     return text;
   };
 
-  isValidKey = (key: string): boolean => {
+  isValidKey = (key: string): key is TextKey => {
     const lang = this.#languageService.getLanguage();
     const translations = this.#translations[lang];
     return key in translations;

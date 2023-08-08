@@ -1,6 +1,6 @@
-import { Lang } from '~/features/i18n/services';
+import { Lang, TextKey } from '~/features/i18n/services';
 
-export function langToTextKey(lang: Lang) {
+export function langToTextKey(lang: Lang): TextKey {
   switch (lang) {
     case Lang.EN:
       return 'translation.select.option.label.english';

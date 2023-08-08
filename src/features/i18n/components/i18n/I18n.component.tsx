@@ -1,5 +1,6 @@
 import { ComponentProps, ComponentPropsWithoutRef, ElementType } from 'react';
 
+import { TextKey } from '~/features/i18n/services';
 import { useTranslations } from '~/features/i18n/hooks';
 
 interface AsProps<T extends ElementType> {
@@ -10,7 +11,7 @@ type DynamicProps<T extends ElementType> = AsProps<T> &
   ComponentPropsWithoutRef<T>;
 
 interface Props {
-  text: string;
+  text: TextKey;
 }
 
 export function I18n<T extends ElementType>(props: Props & DynamicProps<T>) {
