@@ -21,6 +21,7 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react-swc": "^3.3.2",
+    "@vitest/browser": "^0.34.1",
     "eslint": "^8.45.0",
     "eslint-import-resolver-typescript": "^3.5.5",
     "eslint-plugin-import": "^2.27.5",
@@ -29,6 +30,7 @@
     "eslint-plugin-react-refresh": "^0.4.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
-    "vitest": "^0.34.1"
+    "vitest": "^0.34.1",
+    "webdriverio": "^8.14.3"
   }
 }
