@@ -2,7 +2,7 @@ import { describe, expect, test } from 'vitest';
 
 import { isEmpty } from './is-empty.utility';
 
-describe('utility: isEmpty', () => {
+describe.concurrent('utility: isEmpty', () => {
   test('returns "true" when value is "undefined"', () => {
     expect(isEmpty(undefined)).toBe(true);
   });
