@@ -1,5 +1,21 @@
-import { ConfigurationService } from './configuration';
+import { HTTPRecordingService, RecordsService } from './recording';
 
-export { request } from './request';
+import { ConfigurationService } from './configuration';
+import type { HTTPRecord } from './recording';
+
+export {
+  request,
+  addRequestInterceptor,
+  addResponseInterceptor,
+  removeRequestInterceptor,
+  removeResponseInterceptor,
+} from './request';
+export type { RequestInterceptor, ResponseInterceptor } from './request';
+export { Environment } from './env';
+
 export const configurationService = new ConfigurationService();
 export { ConfigurationService };
+
+const httpRecords = new RecordsService<HTTPRecord>();
+export const httpRecordingService = new HTTPRecordingService(httpRecords);
+export { RecordsService, HTTPRecordingService };

@@ -1,7 +1,10 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import {
+  configurationService,
+  httpRecordingService,
+} from '~/features/common/services';
 import { useEffect, useState } from 'react';
 
-import { configurationService } from '~/features/common/services';
 import { isNull } from '~/features/common/utility';
 import { languageService } from '~/features/i18n/services';
 import { routes } from '~/features/navigation/router';
@@ -17,8 +20,14 @@ export function App() {
 }
 
 async function appStartup() {
+  httpRecordingService.init();
+
   const config = await configurationService.load();
   languageService.setPreferredLanguage(config['default.language']);
+}
+
+function appCleanup() {
+  httpRecordingService.stop();
 }
 
 function useViewController() {
@@ -34,6 +43,8 @@ function useViewController() {
       .finally(() => {
         setRouter(createBrowserRouter(routes));
       });
+
+    return appCleanup;
   }, []);
 
   return { router };

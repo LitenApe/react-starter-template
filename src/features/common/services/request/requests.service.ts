@@ -1,14 +1,19 @@
+import { prepareRequest, prepareResponse } from './interceptors.service';
+
 import { isDefined } from '~/features/common/utility';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function fetch<R = any>(url: string, config?: RequestInit) {
-  const res = await globalThis.fetch(url, config);
+async function fetch<R>(url: string, config: RequestInit = {}) {
+  const req = await prepareRequest(url, config);
 
-  if (!res.ok) {
-    throw new Error(res.statusText);
+  const res = await globalThis.fetch(req);
+
+  const response = await prepareResponse(res);
+
+  if (!response.ok) {
+    throw new Error(response.statusText);
   }
 
-  return res.json() as R;
+  return response.data as R;
 }
 
 type HTTPMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';
