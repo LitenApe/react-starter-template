@@ -39,17 +39,15 @@ export class TranslationService implements Subscribable<Translations> {
     }
   };
 
-  #updateTranslations = (lang: Lang) => {
-    const getMissingTranslations = async () => {
-      if (isEmpty(this.#translations[lang])) {
-        const jobs = this.#loaded.map((part) =>
-          this.addTranslation(part, lang),
-        );
-        await Promise.all(jobs);
-      }
-    };
+  #getMissingTranslations = async (lang: Lang) => {
+    if (isEmpty(this.#translations[lang])) {
+      const jobs = this.#loaded.map((part) => this.addTranslation(part, lang));
+      await Promise.all(jobs);
+    }
+  };
 
-    getMissingTranslations()
+  #updateTranslations = (lang: Lang) => {
+    this.#getMissingTranslations(lang)
       .catch(() => {
         console.error('Unable to update translations!');
       })
