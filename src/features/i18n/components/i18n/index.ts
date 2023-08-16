@@ -1,1 +1,1 @@
-export { I18n } from './I18n.component';
+export { I18n } from './i18n.component';
