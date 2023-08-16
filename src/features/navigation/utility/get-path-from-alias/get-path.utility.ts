@@ -22,12 +22,14 @@ export function getPath(routes: RouteObject[], alias: string): string | null {
       const child = getPath(cur.children, alias);
 
       if (isDefined(child)) {
+        const delimiter = child.startsWith('/') ? '' : '/';
+
         if (cur.path === '/') {
-          return `/${child}`;
+          return `${delimiter}${child}`;
         }
 
         if (isDefined(cur.path)) {
-          return `${cur.path}/${child}`;
+          return `${cur.path}${delimiter}${child}`;
         }
 
         return child;

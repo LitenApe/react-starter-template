@@ -6,13 +6,6 @@ import react from '@vitejs/plugin-react-swc';
 export default defineConfig({
   plugins: [react()],
   envDir: './dotenv',
-  test: {
-    browser: {
-      enabled: true,
-      name: 'chrome',
-      headless: true,
-    },
-  },
   resolve: {
     alias: {
       '~': '/src',
