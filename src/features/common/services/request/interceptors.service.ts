@@ -1,4 +1,4 @@
-import { RequestInterceptor, ResponseInterceptor } from './domain';
+import { HTTPRespone, RequestInterceptor, ResponseInterceptor } from './domain';
 
 import { Environment } from '~/features/common/services';
 import { transformResponse } from './response-transformer.utility';
@@ -45,11 +45,16 @@ export async function prepareRequest(
   return [reqUrl, reqConfig];
 }
 
-export async function prepareResponse(res: Response) {
+export async function prepareResponse(res: Response, req: RequestInit) {
   const response = await transformResponse(res);
 
-  return await responseInterceptors.reduce(async (acc, interceptor) => {
-    const accumulator = await acc;
-    return interceptor(accumulator);
-  }, Promise.resolve(response));
+  const [processedResponse] = await responseInterceptors.reduce(
+    async (acc, interceptor) => {
+      const accumulator = await acc;
+      return interceptor(accumulator[0], accumulator[1]);
+    },
+    Promise.resolve([response, req] as [HTTPRespone, RequestInit]),
+  );
+
+  return processedResponse;
 }

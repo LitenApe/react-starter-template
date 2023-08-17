@@ -9,4 +9,5 @@ export type RequestInterceptor = (
 ) => Promise<[string, RequestInit]> | [string, RequestInit];
 export type ResponseInterceptor = (
   res: HTTPRespone,
-) => Promise<HTTPRespone> | HTTPRespone;
+  req: RequestInit,
+) => Promise<[HTTPRespone, RequestInit]> | [HTTPRespone, RequestInit];

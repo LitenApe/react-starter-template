@@ -1,10 +1,7 @@
 import {
   Environment,
-  RequestInterceptor,
   ResponseInterceptor,
-  addRequestInterceptor,
   addResponseInterceptor,
-  removeRequestInterceptor,
   removeResponseInterceptor,
 } from '~/features/common/services';
 
@@ -18,25 +15,19 @@ export class HTTPRecordingService {
     this.#recorder = recorder;
   }
 
-  #requestListener: RequestInterceptor = (url, config) => {
-    this.#recorder.addEntry(url, {
-      method: config.method ?? 'get',
-      data: null,
-      status: null,
-    });
-    return [url, config];
-  };
-
-  #responseListener: ResponseInterceptor = (response) => {
+  #responseListener: ResponseInterceptor = (response, request) => {
     const key = this.getEntryKey(response.url);
     const entry = this.#recorder.getEntry(key);
 
     this.#recorder.addEntry(key, {
       ...entry,
-      data: response.data,
-      status: response.status,
+      [request.method ?? 'get']: {
+        data: response.data,
+        status: response.status,
+      },
     });
-    return response;
+
+    return [response, request];
   };
 
   getEntryKey = (url: string) => {
@@ -56,12 +47,10 @@ export class HTTPRecordingService {
   };
 
   start = () => {
-    addRequestInterceptor(this.#requestListener);
     addResponseInterceptor(this.#responseListener);
   };
 
   stop = () => {
-    removeRequestInterceptor(this.#requestListener);
     removeResponseInterceptor(this.#responseListener);
   };
 

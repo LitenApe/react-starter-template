@@ -18,14 +18,23 @@ server.all('/*', (request, reply) => {
   if (
     resource === undefined ||
     record === undefined ||
-    record.method.toLocaleLowerCase() !== method.toLocaleLowerCase()
+    record[method.toLocaleLowerCase()] === undefined
   ) {
     console.log('Attempted to retrieve invalid record on', resource);
+    return reply.status(400).send();
+  }
+
+  if (record[method.toLocaleLowerCase()] === undefined) {
+    console.log(
+      'Attempted to retrieve resource of unknown http method',
+      method,
+    );
     return reply.status(404).send();
   }
 
-  console.log('Found valid record for resource', resource);
-  return reply.status(record.status).send(record.data);
+  const httpRecord = record[method.toLocaleLowerCase()];
+  console.log('Found valid record for resource', method, resource);
+  return reply.status(httpRecord.status).send(httpRecord.data);
 });
 
 const start = async () => {

@@ -7,7 +7,7 @@ async function fetch<R>(url: string, config: RequestInit = {}) {
 
   const res = await globalThis.fetch(reqUrl, reqConfig);
 
-  const response = await prepareResponse(res);
+  const response = await prepareResponse(res, reqConfig);
 
   if (!response.ok) {
     throw new Error(response.statusText);
