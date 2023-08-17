@@ -8,8 +8,11 @@ function transformBody(body: string) {
   }
 }
 
-export async function transformResponse(res: Response): Promise<HTTPRespone> {
+export async function transformResponse(
+  res: Response,
+  request: RequestInit,
+): Promise<HTTPRespone> {
   const data = await res.text();
   const response = Object.assign(res, { data: transformBody(data) });
-  return response;
+  return Object.assign(response, { request });
 }

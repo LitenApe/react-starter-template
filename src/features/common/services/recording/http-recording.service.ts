@@ -15,19 +15,21 @@ export class HTTPRecordingService {
     this.#recorder = recorder;
   }
 
-  #responseListener: ResponseInterceptor = (response, request) => {
+  #responseListener: ResponseInterceptor = (response) => {
     const key = this.getEntryKey(response.url);
     const entry = this.#recorder.getEntry(key);
 
+    const method = response.request.method ?? 'get';
+
     this.#recorder.addEntry(key, {
       ...entry,
-      [request.method ?? 'get']: {
+      [method]: {
         data: response.data,
         status: response.status,
       },
     });
 
-    return [response, request];
+    return response;
   };
 
   getEntryKey = (url: string) => {
