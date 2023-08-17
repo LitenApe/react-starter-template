@@ -3,9 +3,9 @@ import { prepareRequest, prepareResponse } from './interceptors.service';
 import { isDefined } from '~/features/common/utility';
 
 async function fetch<R>(url: string, config: RequestInit = {}) {
-  const req = await prepareRequest(url, config);
+  const [reqUrl, reqConfig] = await prepareRequest(url, config);
 
-  const res = await globalThis.fetch(req);
+  const res = await globalThis.fetch(reqUrl, reqConfig);
 
   const response = await prepareResponse(res);
 
@@ -22,6 +22,7 @@ const handlers = {
   get(_: unknown, method: HTTPMethod) {
     return (url: string, payload?: object) => {
       const body = isDefined(payload) ? JSON.stringify(payload) : null;
+
       return fetch(url, { method, body });
     };
   },

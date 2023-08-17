@@ -4,8 +4,9 @@ export interface HTTPRespone extends Response {
 }
 
 export type RequestInterceptor = (
-  req: HTTPRequest,
-) => Promise<HTTPRequest> | HTTPRequest;
+  url: string,
+  config: RequestInit,
+) => Promise<[string, RequestInit]> | [string, RequestInit];
 export type ResponseInterceptor = (
   res: HTTPRespone,
 ) => Promise<HTTPRespone> | HTTPRespone;
