@@ -13,7 +13,7 @@ export {
 export type { RequestInterceptor, ResponseInterceptor } from './request';
 export { Environment, Mode } from './env';
 
-export const configurationService = new ConfigurationService();
+export const configurations = new ConfigurationService();
 export { ConfigurationService };
 
 const httpRecords = new RecordsService<HTTPRecord>();

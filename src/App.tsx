@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import {
-  configurationService,
+  configurations,
   httpRecordingService,
 } from '~/features/common/services';
 import { useEffect, useState } from 'react';
@@ -22,7 +22,7 @@ export function App() {
 async function appStartup() {
   httpRecordingService.init();
 
-  const config = await configurationService.load();
+  const config = await configurations.load();
   languageService.setPreferredLanguage(config['default.language']);
 }
 
