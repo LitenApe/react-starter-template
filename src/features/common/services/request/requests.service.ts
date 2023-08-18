@@ -5,9 +5,9 @@ import { isDefined } from '~/features/common/utility';
 async function fetch<R>(url: string, config: RequestInit = {}) {
   const [reqUrl, reqConfig] = await prepareRequest(url, config);
 
-  const res = await globalThis.fetch(reqUrl, reqConfig);
-
-  const response = await prepareResponse(res, reqConfig);
+  const req = new Request(reqUrl, reqConfig);
+  const res = await globalThis.fetch(req);
+  const response = await prepareResponse(req, res);
 
   if (!response.ok) {
     throw new Error(response.statusText);

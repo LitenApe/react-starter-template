@@ -20,7 +20,7 @@ server.all('/*', (request, reply) => {
     return reply.status(400).send();
   }
 
-  const httpRecord = record[method.toLocaleLowerCase()];
+  const httpRecord = record[method];
 
   if (httpRecord === undefined) {
     console.warn('Attempted to retrieve record of unknown http method', method);

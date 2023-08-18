@@ -1,8 +1,6 @@
+import { HTTPRespone } from './http-response.service';
+
 export type HTTPRequest = Request;
-export interface HTTPRespone extends Response {
-  data: unknown;
-  request: RequestInit;
-}
 
 export type RequestInterceptor = (
   url: string,
