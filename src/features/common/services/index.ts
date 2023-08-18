@@ -11,7 +11,7 @@ export {
   removeResponseInterceptor,
 } from './request';
 export type { RequestInterceptor, ResponseInterceptor } from './request';
-export { Environment } from './env';
+export { Environment, Mode } from './env';
 
 export const configurationService = new ConfigurationService();
 export { ConfigurationService };

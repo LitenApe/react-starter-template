@@ -1,4 +1,4 @@
-import { Lang } from './domain';
+import { Lang } from './lang.constant';
 import { Subscribable } from '~/features/common/types';
 import { isNull } from '~/features/common/utility';
 
