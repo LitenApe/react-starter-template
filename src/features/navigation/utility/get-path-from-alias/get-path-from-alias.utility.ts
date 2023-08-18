@@ -1,8 +1,12 @@
+import { RouteObject } from 'react-router-dom';
+import { routes as appRoutes } from '~/features/navigation/router';
 import { getPath } from './get-path.utility';
 import { isNull } from '~/features/common/utility';
-import { routes } from '~/features/navigation/router';
 
-export function getPathFromAlias(alias: string) {
+export function getPathFromAlias(
+  alias: string,
+  routes: RouteObject[] = appRoutes,
+) {
   const path = getPath(routes, alias);
 
   if (isNull(path)) {

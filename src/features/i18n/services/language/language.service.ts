@@ -17,7 +17,7 @@ export class LanguageService implements Subscribable<Lang> {
   };
 
   #saveLanguage = (lang: Lang) => {
-    localStorage.setItem(STORAGE_KEY, lang);
+    globalThis.localStorage.setItem(STORAGE_KEY, lang);
   };
 
   #isValidLanguageKey = (lang: string): lang is Lang => {
@@ -25,7 +25,7 @@ export class LanguageService implements Subscribable<Lang> {
   };
 
   #retrieveLanguage = (): Lang | null => {
-    const storedLanguage = localStorage.getItem(STORAGE_KEY);
+    const storedLanguage = globalThis.localStorage.getItem(STORAGE_KEY);
 
     if (isNull(storedLanguage) || !this.#isValidLanguageKey(storedLanguage)) {
       return null;
