@@ -12,11 +12,11 @@ export class TranslationService implements Subscribable<Translations> {
   #loaded: string[] = [];
   #translations: Record<Lang, Translations> = {
     // @ts-expect-error initial state, should be populated through `addTranslations`
-    [Lang.EN]: {},
+    en: {},
     // @ts-expect-error initial state, should be populated through `addTranslations`
-    [Lang.NB]: {},
+    nb: {},
     // @ts-expect-error initial state, should be populated through `addTranslations`
-    [Lang.SV]: {},
+    sv: {},
   };
 
   constructor(languageService: LanguageService) {
