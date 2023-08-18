@@ -9,6 +9,7 @@ export default defineConfig({
   envDir: './dotenv',
   test: {
     setupFiles: ['./src/test/setup.ts'],
+    reporters: ['verbose'],
   },
   server: {
     proxy: {
