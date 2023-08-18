@@ -16,7 +16,7 @@ export class HTTPRecordingService {
   }
 
   #responseListener: ResponseInterceptor = (response) => {
-    const key = this.getEntryKey(response.request.url);
+    const key = this.#getEntryKey(response.request.url);
     const entry = this.#recorder.getEntry(key);
 
     const method = response.request.method;
@@ -32,7 +32,7 @@ export class HTTPRecordingService {
     return response;
   };
 
-  getEntryKey = (url: string) => {
+  #getEntryKey = (url: string) => {
     const origin = globalThis.location.origin;
 
     if (url.startsWith(origin)) {
