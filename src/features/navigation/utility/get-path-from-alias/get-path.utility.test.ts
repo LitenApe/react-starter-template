@@ -32,7 +32,7 @@ const routes: RouteObject[] = [
   },
 ];
 
-describe('utility: getPath', () => {
+describe.concurrent('utility: getPath', () => {
   test('returns root path when alias is first element', ({ expect }) => {
     const path = getPath(routes, 'root');
     expect(path).toBe('/');

@@ -11,7 +11,7 @@ vi.mock('~/features/common/services/request', () => ({
   },
 }));
 
-describe('service: ConfigurationService', () => {
+describe.concurrent('service: ConfigurationService', () => {
   test('throw error when reading config before load', ({ expect }) => {
     const configurationService = new ConfigurationService();
     expect(() => configurationService.config()).toThrow();

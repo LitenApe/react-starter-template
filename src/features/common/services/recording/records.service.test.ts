@@ -2,7 +2,7 @@ import { describe, test } from 'vitest';
 
 import { RecordsService } from './records.service';
 
-describe('service: records', () => {
+describe.concurrent('service: records', () => {
   test('returns inserted record', ({ expect }) => {
     const records = new RecordsService();
 
