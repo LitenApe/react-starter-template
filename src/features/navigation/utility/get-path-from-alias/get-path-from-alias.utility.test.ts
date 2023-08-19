@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'vitest';
+import { describe, test } from 'vitest';
 
 import { RouteObject } from 'react-router-dom';
 import { getPathFromAlias } from '.';
@@ -33,12 +33,12 @@ const routes: RouteObject[] = [
 ];
 
 describe('utility: getPathFromAlias', () => {
-  test('returns valid path for alias', () => {
+  test('returns valid path for alias', ({ expect }) => {
     const path = getPathFromAlias('profile', routes);
     expect(path).toBe('/profile');
   });
 
-  test('throws error on invalid alias', () => {
+  test('throws error on invalid alias', ({ expect }) => {
     expect(() => getPathFromAlias('profile', [])).toThrow();
   });
 });

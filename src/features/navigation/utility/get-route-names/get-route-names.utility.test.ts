@@ -1,10 +1,10 @@
-import { describe, expect, test } from 'vitest';
+import { describe, test } from 'vitest';
 
 import { RouteObject } from 'react-router-dom';
 import { getRouteNames } from './get-route-names.utility';
 
 describe.concurrent('utility: getRouteNames', () => {
-  test("returns all route id's", () => {
+  test("returns all route id's", ({ expect }) => {
     const expected = ['home', 'not-home', 'profile'];
     const routes: RouteObject[] = [
       { id: expected[0] },
@@ -17,7 +17,7 @@ describe.concurrent('utility: getRouteNames', () => {
     expect(received).toStrictEqual(expected);
   });
 
-  test('ignores "undefined" values', () => {
+  test('ignores "undefined" values', ({ expect }) => {
     const expected = ['home', 'not-home', 'profile'];
     const routes: RouteObject[] = [
       { id: expected[0] },

@@ -1,9 +1,9 @@
-import { describe, expect, test } from 'vitest';
+import { describe, test } from 'vitest';
 
 import { RecordsService } from './records.service';
 
 describe('service: records', () => {
-  test('returns inserted record', () => {
+  test('returns inserted record', ({ expect }) => {
     const records = new RecordsService();
 
     const key = 'test';
@@ -15,7 +15,7 @@ describe('service: records', () => {
     expect(received).toStrictEqual(record);
   });
 
-  test('returns all entries', () => {
+  test('returns all entries', ({ expect }) => {
     const records = new RecordsService();
 
     const expected = {
