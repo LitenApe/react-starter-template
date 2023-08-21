@@ -1,3 +1,8 @@
-export { RecordsService } from './records.service';
-export { HTTPRecordingService } from './http-recording.service';
-export type { HTTPRecord } from './domain';
+import { HTTPRecord } from './domain';
+import { HTTPRecordingService } from './http-recording.service';
+import { RecordsService } from './records.service';
+
+const httpRecords = new RecordsService<HTTPRecord>();
+export const httpRecordingService = new HTTPRecordingService(httpRecords);
+
+export { httpRecords, HTTPRecordingService };

@@ -2,7 +2,7 @@ import { describe, test } from 'vitest';
 
 import { isDefined } from './is-defined.utility';
 
-describe.concurrent('utility: isDefined', () => {
+describe.concurrent('common utility: isDefined', () => {
   test('returns "true" when value is "Array"', ({ expect }) => {
     expect(isDefined([])).toBe(true);
   });

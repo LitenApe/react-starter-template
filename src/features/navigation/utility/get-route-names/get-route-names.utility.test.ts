@@ -3,7 +3,7 @@ import { describe, test } from 'vitest';
 import { RouteObject } from 'react-router-dom';
 import { getRouteNames } from './get-route-names.utility';
 
-describe.concurrent('utility: getRouteNames', () => {
+describe.concurrent('navigation utility: getRouteNames', () => {
   test("returns all route id's", ({ expect }) => {
     const expected = ['home', 'not-home', 'profile'];
     const routes: RouteObject[] = [

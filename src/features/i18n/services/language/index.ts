@@ -1,2 +1,5 @@
-export { LanguageService } from './language.service';
-export { Lang } from './lang.constant';
+import { Lang } from './lang.constant';
+import { LanguageService } from './language.service';
+
+export const languageService = new LanguageService(Lang.EN);
+export { Lang, LanguageService };

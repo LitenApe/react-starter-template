@@ -2,7 +2,7 @@ import { describe, test } from 'vitest';
 
 import { isNull } from './is-null.utility';
 
-describe.concurrent('utility: isNull', () => {
+describe.concurrent('common utility: isNull', () => {
   test('returns "true" when value is "null"', ({ expect }) => {
     expect(isNull(null)).toBe(true);
   });

@@ -3,7 +3,6 @@
 import { ConfigurationService } from './__mocks__/configuration.service';
 import { vi } from 'vitest';
 
-vi.mock(
-  '~/features/common/services/configuration/configuration.service',
-  () => ({ ConfigurationService }),
-);
+vi.mock('~/features/common/services/configuration', () => ({
+  ConfigurationService,
+}));

@@ -32,7 +32,7 @@ const routes: RouteObject[] = [
   },
 ];
 
-describe.concurrent('utility: getPathFromAlias', () => {
+describe.concurrent('navigation utility: getPathFromAlias', () => {
   test('returns valid path for alias', ({ expect }) => {
     const path = getPathFromAlias('profile', routes);
     expect(path).toBe('/profile');
