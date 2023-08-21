@@ -1,6 +1,6 @@
+import { Environment, Mode } from '~/features/common/services';
 import { RequestInterceptor, ResponseInterceptor } from './domain';
 
-import { Environment } from '~/features/common/services';
 import { HTTPRespone } from './http-response.service';
 
 export let requestInteceptors: RequestInterceptor[] = [];
@@ -34,7 +34,7 @@ export async function prepareRequest(
     Promise.resolve([url, config] as [string, RequestInit]),
   );
 
-  if (Environment.OFFLINE) {
+  if (Environment.MODE === Mode.OFFLINE) {
     reqConfig.headers = {
       ...reqConfig.headers,
       [Environment.OFFLINE_HEADER]: url,

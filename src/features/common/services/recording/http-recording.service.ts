@@ -1,5 +1,6 @@
 import {
   Environment,
+  Mode,
   ResponseInterceptor,
   addResponseInterceptor,
   removeResponseInterceptor,
@@ -43,7 +44,7 @@ export class HTTPRecordingService {
   };
 
   init = () => {
-    if (Environment.RECORD) {
+    if (Environment.MODE === Mode.RECORD) {
       this.start();
     }
   };
