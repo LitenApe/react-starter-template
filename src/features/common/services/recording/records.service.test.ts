@@ -36,4 +36,18 @@ describe.concurrent('common service: records', () => {
 
     expect(received).toStrictEqual(expected);
   });
+
+  test('clear wipes entries', ({ expect }) => {
+    const records = new RecordsService<number>();
+
+    const expected = {
+      foo: 2,
+    };
+
+    records.addEntry('foo', 2);
+    expect(records.getRecords()).toStrictEqual(expected);
+
+    records.clear();
+    expect(records.getRecords()).toStrictEqual({});
+  });
 });

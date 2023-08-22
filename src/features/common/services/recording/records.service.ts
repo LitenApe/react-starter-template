@@ -12,4 +12,8 @@ export class RecordsService<R> {
   getRecords = () => {
     return this.#entries;
   };
+
+  clear = () => {
+    this.#entries = {};
+  };
 }
