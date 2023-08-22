@@ -16,7 +16,14 @@ async function fetch<R>(url: string, config: RequestInit = {}) {
   return response.data as R;
 }
 
-type HTTPMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';
+type HTTPMethod =
+  | 'get'
+  | 'head'
+  | 'post'
+  | 'put'
+  | 'patch'
+  | 'delete'
+  | 'options';
 
 const handlers = {
   get(_: unknown, method: HTTPMethod) {
