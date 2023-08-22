@@ -22,6 +22,16 @@ export function removeResponseInterceptor(callback: ResponseInterceptor) {
   responseInterceptors = responseInterceptors.filter((cb) => cb !== callback);
 }
 
+// ! ONLY USE DURING TESTS
+export function clearRequestInterceptors() {
+  requestInteceptors = [];
+}
+
+// ! ONLY USED DURING TESTS
+export function clearResponseInterceptors() {
+  responseInterceptors = [];
+}
+
 export async function prepareRequest(
   url: string,
   config: RequestInit,

@@ -35,5 +35,11 @@ module.exports = {
         allow: ['react-dom/*', '~/features/*/*', 'public/**/*'],
       },
     ],
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        varsIgnorePattern: '_*',
+      },
+    ],
   },
 };

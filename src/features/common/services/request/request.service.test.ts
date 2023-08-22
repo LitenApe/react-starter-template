@@ -8,7 +8,7 @@ function createHTTPRespone(response: ResponseInit) {
   spyFetch.mockResolvedValue(mockResponse);
 }
 
-describe('common service: request', () => {
+describe.concurrent('common service: request', () => {
   beforeEach(() => {
     spyFetch.mockClear();
   });
