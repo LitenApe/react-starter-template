@@ -7,14 +7,14 @@ import { RecordsService } from './records.service';
 
 const spyFetch = vi.spyOn(globalThis, 'fetch');
 
-async function sendHTTPRequest() {
+async function sendHTTPRequest(url = 'http://test.com/skills') {
   const mockResponse = new Response('completed', {
     status: 200,
     statusText: 'success',
     headers: {},
   });
   spyFetch.mockResolvedValue(mockResponse);
-  await request.get('http://test.com/skills');
+  await request.get(url);
 }
 
 describe.concurrent('common service: http recording', () => {
@@ -40,6 +40,20 @@ describe.concurrent('common service: http recording', () => {
 
     expect(records.getRecords()).toStrictEqual({
       'http://test.com/skills': { GET: { status: 200, data: 'completed' } },
+    });
+  });
+
+  test('origin is removed from entry key if domain === origin', async ({
+    expect,
+  }) => {
+    const records = new RecordsService<HTTPRecord>();
+    const recorder = new HTTPRecordingService(records);
+    recorder.start();
+
+    await sendHTTPRequest(`${globalThis.location.origin}/skills`);
+
+    expect(records.getRecords()).toStrictEqual({
+      '/skills': { GET: { status: 200, data: 'completed' } },
     });
   });
 
