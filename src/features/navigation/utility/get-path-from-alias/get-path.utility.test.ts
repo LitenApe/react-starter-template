@@ -16,6 +16,9 @@ const routes: RouteObject[] = [
             id: 'settings',
             path: 'settings',
           },
+          {
+            id: 'edit',
+          },
         ],
       },
       {
@@ -46,5 +49,13 @@ describe.concurrent('navigation utility: getPath', () => {
   test('handles prefixed paths correctly', ({ expect }) => {
     const path = getPath(routes, 'book');
     expect(path).toBe('/book/:bookid');
+  });
+
+  test('throws error if alias is linked to route without path definition', ({
+    expect,
+  }) => {
+    expect(() => {
+      getPath(routes, 'edit');
+    }).toThrowError();
   });
 });
