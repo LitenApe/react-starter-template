@@ -3,6 +3,7 @@ import { beforeEach, describe, test, vi } from 'vitest';
 import { request } from './requests.service';
 
 const spyFetch = vi.spyOn(globalThis, 'fetch');
+
 function createHTTPRespone(response: ResponseInit) {
   const mockResponse = new Response('completed', response);
   spyFetch.mockResolvedValue(mockResponse);
