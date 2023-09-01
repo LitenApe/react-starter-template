@@ -2,7 +2,7 @@ import { Lang } from './lang.constant';
 import { Subscribable } from '~/features/common/types';
 import { isNull } from '~/features/common/utility';
 
-const STORAGE_KEY = 'PREFERRED_LANGUAGE';
+export const STORAGE_KEY = 'PREFERRED_LANGUAGE';
 
 export class LanguageService implements Subscribable<Lang> {
   #preferredLanguage: Lang;
