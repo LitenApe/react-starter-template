@@ -1,1 +1,1 @@
-export * from './useCurrentRoutes';
+export * from './use-current-routes';
