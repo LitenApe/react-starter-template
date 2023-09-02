@@ -5,6 +5,6 @@ export const routeAliasToTextKey = (alias: string) => {
     case rootAliases.home:
       return 'breadcrumb.home';
     default:
-      return alias;
+      return null;
   }
 };

@@ -3,6 +3,7 @@ import './index.css';
 import { I18n } from '~/features/i18n/components';
 import { Link } from '~/features/navigation/components';
 import { getRouteNames } from '~/features/navigation/utility';
+import { isDefined } from '~/features/common/utility';
 import { routeAliasToTextKey } from './route-alias-to-text-key.utility';
 import { useCurrentRoutes } from '~/features/navigation/hooks';
 import { useTranslationsUtils } from '~/features/i18n/hooks';
@@ -32,7 +33,10 @@ function useViewController() {
   const paths = getRouteNames(routes);
 
   const { isValidKey } = useTranslationsUtils();
-  const crumbs = paths.map(routeAliasToTextKey).filter(isValidKey);
+  const crumbs = paths
+    .map(routeAliasToTextKey)
+    .filter(isDefined)
+    .filter(isValidKey);
 
   return { crumbs };
 }
