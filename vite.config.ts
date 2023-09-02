@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [react()],
   envDir: './dotenv',
   test: {
-    setupFiles: ['./src/test/setup.ts'],
+    setupFiles: ['./src/test/setup-mocks.ts'],
     reporters: ['verbose'],
     environment: 'jsdom',
   },

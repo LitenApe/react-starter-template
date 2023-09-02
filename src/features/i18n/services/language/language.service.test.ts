@@ -3,7 +3,7 @@ import { beforeEach, describe, test, vi } from 'vitest';
 
 import { Lang } from './lang.constant';
 
-describe('i18n service: language', () => {
+describe.concurrent('i18n service: language', () => {
   beforeEach(() => {
     globalThis.localStorage.removeItem(STORAGE_KEY);
   });
