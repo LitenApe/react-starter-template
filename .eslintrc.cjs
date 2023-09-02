@@ -10,7 +10,7 @@ module.exports = {
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.ts'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.ts', 'fixtures'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: ['./tsconfig.json', './tsconfig.node.json'],
@@ -41,5 +41,6 @@ module.exports = {
         varsIgnorePattern: '_*',
       },
     ],
+    'no-console': ['error', { allow: ['warn', 'error'] }],
   },
 };
