@@ -7,8 +7,6 @@ export function langToTextKey(lang: Lang): TextKey {
       return 'translation.select.option.label.english';
     case Lang.NB:
       return 'translation.select.option.label.norwegian';
-    case Lang.SV:
-      return 'translation.select.option.label.swedish';
     default:
       return lang;
   }

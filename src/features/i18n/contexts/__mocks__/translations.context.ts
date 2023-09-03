@@ -12,7 +12,7 @@ interface TranslationContext {
   translationService: TranslationService;
 }
 
-export const context = createContext<TranslationContext>({
+export const translationsContext = createContext<TranslationContext>({
   languageService: languageService,
   translationService: translationService,
 });

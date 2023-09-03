@@ -6,15 +6,17 @@ import {
 } from 'react';
 import { languageService, translationService } from '~/features/i18n/services';
 
-import { context } from '~/features/i18n/contexts';
+import { translationsContext } from '~/features/i18n/contexts';
 
 export function I18nProvider(props: PropsWithChildren) {
   const { children } = useViewController(props);
 
   return (
-    <context.Provider value={{ languageService, translationService }}>
+    <translationsContext.Provider
+      value={{ languageService, translationService }}
+    >
       {children}
-    </context.Provider>
+    </translationsContext.Provider>
   );
 }
 

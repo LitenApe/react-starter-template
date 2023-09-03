@@ -15,8 +15,6 @@ export class TranslationService implements Subscribable<Translations> {
     en: {},
     // @ts-expect-error initial state, should be populated through `addTranslations`
     nb: {},
-    // @ts-expect-error initial state, should be populated through `addTranslations`
-    sv: {},
   };
 
   constructor(languageService: LanguageService) {

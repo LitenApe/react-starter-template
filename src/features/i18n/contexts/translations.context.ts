@@ -7,4 +7,6 @@ interface TranslationContext {
   translationService: TranslationService;
 }
 
-export const context = createContext<TranslationContext | null>(null);
+export const translationsContext = createContext<TranslationContext | null>(
+  null,
+);

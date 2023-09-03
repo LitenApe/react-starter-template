@@ -91,4 +91,22 @@ describe.concurrent('common service: http recording', () => {
 
     expect(spyRecords).toHaveBeenCalledTimes(1);
   });
+
+  test('only attach one http listener when enabled', async ({ expect }) => {
+    const spyEnv = vi.spyOn(Environment, 'MODE', 'get');
+    spyEnv.mockReturnValue(Mode.RECORD);
+
+    const records = new RecordsService<HTTPRecord>();
+    const recorder = new HTTPRecordingService(records);
+    const spyRecords = vi.spyOn(records, 'addEntry');
+    recorder.init();
+    recorder.start();
+    recorder.start();
+
+    expect(spyRecords).not.toHaveBeenCalled();
+
+    await sendHTTPRequest();
+
+    expect(spyRecords).toHaveBeenCalledTimes(1);
+  });
 });

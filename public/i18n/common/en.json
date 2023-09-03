@@ -3,5 +3,13 @@
   "translation.select.label": "Choose preferred language",
   "translation.select.option.label.english": "English",
   "translation.select.option.label.norwegian": "Norsk",
-  "translation.select.option.label.swedish": "Svenska"
+  "devtool.heading": "Developer Tools",
+  "devtool.table.heading.name": "Name",
+  "devtool.table.heading.action": "Action",
+  "devtool.action.mode.name": "Mode",
+  "devtool.action.recording.name": "Toggle Recording",
+  "devtool.action.recording.action.start": "Start",
+  "devtool.action.recording.action.stop": "Stop",
+  "devtool.action.save.name": "Save Recording",
+  "devtool.action.save.action": "Save"
 }

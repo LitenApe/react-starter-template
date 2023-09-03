@@ -3,5 +3,13 @@
   "translation.select.label": "Velg foretrukket språk",
   "translation.select.option.label.english": "English",
   "translation.select.option.label.norwegian": "Norsk",
-  "translation.select.option.label.swedish": "Svenska"
+  "devtool.heading": "Utvikler Verktøy",
+  "devtool.table.heading.name": "Navn",
+  "devtool.table.heading.action": "Handling",
+  "devtool.action.mode.name": "Modus",
+  "devtool.action.recording.name": "Veksle Mellom Opptak",
+  "devtool.action.recording.action.start": "Start",
+  "devtool.action.recording.action.stop": "Stopp",
+  "devtool.action.save.name": "Lagre Opptak",
+  "devtool.action.save.action": "Lagre"
 }

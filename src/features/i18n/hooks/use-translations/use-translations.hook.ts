@@ -1,11 +1,11 @@
 import { assert, isNull } from '~/features/common/utility';
 
 import { I18nProvider } from '~/features/i18n/components';
-import { context } from '~/features/i18n/contexts';
+import { translationsContext } from '~/features/i18n/contexts';
 import { useContext } from 'react';
 
 export function useTranslations() {
-  const ctx = useContext(context);
+  const ctx = useContext(translationsContext);
 
   assert(
     !isNull(ctx),

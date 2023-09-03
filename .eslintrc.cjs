@@ -32,7 +32,14 @@ module.exports = {
     'import/no-internal-modules': [
       'error',
       {
-        allow: ['react-dom/*', '~/features/*/*', 'public/**/*'],
+        allow: [
+          'react-dom/*',
+          '~/features/common/*',
+          '~/features/i18n/*',
+          '~/features/navigation/*',
+          '~/features/*/',
+          'public/**/*',
+        ],
       },
     ],
     '@typescript-eslint/no-unused-vars': [

@@ -11,9 +11,11 @@ import { RecordsService } from './records.service';
 
 export class HTTPRecordingService {
   #recorder: RecordsService<HTTPRecord>;
+  #isRecording: boolean;
 
   constructor(recorder: RecordsService<HTTPRecord>) {
     this.#recorder = recorder;
+    this.#isRecording = false;
   }
 
   #responseListener: ResponseInterceptor = (response) => {
@@ -50,11 +52,15 @@ export class HTTPRecordingService {
   };
 
   start = () => {
-    addResponseInterceptor(this.#responseListener);
+    if (!this.#isRecording) {
+      addResponseInterceptor(this.#responseListener);
+      this.#isRecording = true;
+    }
   };
 
   stop = () => {
     removeResponseInterceptor(this.#responseListener);
+    this.#isRecording = false;
   };
 
   save = () => {
