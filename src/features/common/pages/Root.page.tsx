@@ -2,7 +2,7 @@ import { I18nProvider, LanguageSelector } from '~/features/i18n/components';
 
 import { Breadcrumb } from '~/features/navigation/components';
 import { Outlet } from 'react-router-dom';
-import { httpRecordingService } from '../services';
+import { httpRecordingService } from '~/features/common/services';
 
 export function RootPage() {
   return (

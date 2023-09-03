@@ -1,5 +1,4 @@
-import { isNull } from '../is-null';
-import { isUndefined } from '../is-undefined';
+import { isNull, isUndefined } from '~/features/common/utility';
 
 export function isDefined<T>(value: T | undefined | null): value is T {
   return !isUndefined(value) && !isNull(value);

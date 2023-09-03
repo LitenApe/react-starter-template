@@ -1,4 +1,4 @@
-import { Config } from './domain';
+import type { Config } from './domain';
 import { isNull } from '~/features/common/utility';
 import { request } from '~/features/common/services';
 

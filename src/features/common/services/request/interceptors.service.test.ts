@@ -1,4 +1,4 @@
-import { Environment, Mode } from '..';
+import { Environment, Mode } from '~/features/common/services';
 import {
   addRequestInterceptor,
   addResponseInterceptor,
