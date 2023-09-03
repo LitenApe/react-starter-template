@@ -1,5 +1,6 @@
+import { assert, isNull } from '~/features/common/utility';
+
 import type { Config } from './domain';
-import { isNull } from '~/features/common/utility';
 import { request } from '~/features/common/services';
 
 export class ConfigurationService {
@@ -12,9 +13,7 @@ export class ConfigurationService {
   };
 
   config = () => {
-    if (isNull(this.#config)) {
-      throw new Error('Configuration has not been loaded yet!');
-    }
+    assert(!isNull(this.#config), 'Configuration has not been loaded yet!');
 
     return this.#config;
   };

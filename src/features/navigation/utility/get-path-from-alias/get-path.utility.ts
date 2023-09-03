@@ -1,4 +1,4 @@
-import { isDefined, isUndefined } from '~/features/common/utility';
+import { assert, isDefined, isUndefined } from '~/features/common/utility';
 
 import { RouteObject } from 'react-router-dom';
 
@@ -9,11 +9,10 @@ export function getPath(routes: RouteObject[], alias: string): string | null {
     }
 
     if (cur.id === alias) {
-      if (isUndefined(cur.path)) {
-        throw new Error(
-          'Encountered a route object without a path, but with an alias',
-        );
-      }
+      assert(
+        !isUndefined(cur.path),
+        'Encountered a route object without a path, but with an alias',
+      );
 
       return cur.path;
     }

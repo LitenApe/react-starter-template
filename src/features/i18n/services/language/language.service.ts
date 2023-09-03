@@ -1,6 +1,7 @@
+import { assert, isNull } from '~/features/common/utility';
+
 import { Lang } from './lang.constant';
 import type { Subscribable } from '~/features/common/types';
-import { isNull } from '~/features/common/utility';
 
 export const STORAGE_KEY = 'PREFERRED_LANGUAGE';
 
@@ -39,13 +40,10 @@ export class LanguageService implements Subscribable<Lang> {
   };
 
   setLanguage = (lang: Lang) => {
-    const isValid = Object.values(Lang).includes(lang);
-
-    if (!isValid) {
-      throw new Error(
-        `The provided [lang=${lang}] is not a valid language key`,
-      );
-    }
+    assert(
+      Object.values(Lang).includes(lang),
+      `The provided [lang=${lang}] is not a valid language key`,
+    );
 
     this.#saveLanguage(lang);
     this.#notify(lang);
