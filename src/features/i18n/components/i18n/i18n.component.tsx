@@ -1,6 +1,6 @@
 import { ComponentProps, ComponentPropsWithoutRef, ElementType } from 'react';
 
-import { TextKey } from '~/features/i18n/services';
+import type { TextKey } from '~/features/i18n/services';
 import { useTranslations } from '~/features/i18n/hooks';
 
 interface AsProps<T extends ElementType> {

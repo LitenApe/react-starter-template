@@ -1,4 +1,5 @@
-import { Lang, TextKey } from '~/features/i18n/services';
+import { Lang } from '~/features/i18n/services';
+import type { TextKey } from '~/features/i18n/services';
 
 export function langToTextKey(lang: Lang): TextKey {
   switch (lang) {

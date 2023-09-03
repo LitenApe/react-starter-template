@@ -1,5 +1,5 @@
 import { Lang } from './lang.constant';
-import { Subscribable } from '~/features/common/types';
+import type { Subscribable } from '~/features/common/types';
 import { isNull } from '~/features/common/utility';
 
 export const STORAGE_KEY = 'PREFERRED_LANGUAGE';

@@ -6,7 +6,7 @@ import {
   removeResponseInterceptor,
 } from '~/features/common/services';
 
-import { HTTPRecord } from './domain';
+import type { HTTPRecord } from './domain';
 import { RecordsService } from './records.service';
 
 export class HTTPRecordingService {

@@ -1,8 +1,8 @@
 import { Lang, LanguageService } from '~/features/i18n/services';
-import { TextKey, Translations } from './domain';
+import type { TextKey, Translations } from './domain';
 import { isEmpty, isUndefined } from '~/features/common/utility';
 
-import { Subscribable } from '~/features/common/types';
+import type { Subscribable } from '~/features/common/types';
 import { request } from '~/features/common/services';
 
 export class TranslationService implements Subscribable<Translations> {

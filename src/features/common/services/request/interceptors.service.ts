@@ -1,5 +1,5 @@
 import { Environment, Mode } from '~/features/common/services';
-import { RequestInterceptor, ResponseInterceptor } from './domain';
+import type { RequestInterceptor, ResponseInterceptor } from './domain';
 
 import { HTTPRespone } from './http-response.service';
 

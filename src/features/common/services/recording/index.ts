@@ -1,4 +1,4 @@
-import { HTTPRecord } from './domain';
+import type { HTTPRecord } from './domain';
 import { HTTPRecordingService } from './http-recording.service';
 import { RecordsService } from './records.service';
 
