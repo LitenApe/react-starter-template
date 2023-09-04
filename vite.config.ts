@@ -9,7 +9,6 @@ export default defineConfig({
   envDir: './dotenv',
   test: {
     setupFiles: ['./test/setup-mocks.ts'],
-    reporters: ['verbose'],
     environment: 'jsdom',
     coverage: {
       provider: 'v8',
