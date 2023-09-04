@@ -47,4 +47,15 @@ describe.concurrent('i18n component: i18n', () => {
     const el = screen.getByTestId('text-container');
     expect(el.nodeName).toBe('BUTTON');
   });
+
+  test('calls "translationService.getTranslation" with supplied key and variables', ({
+    expect,
+  }) => {
+    render(<I18n text="breadcrumb.home" variables={{ foo: 'bar' }} />);
+
+    expect(spyTranslationService).toBeCalledTimes(1);
+    expect(spyTranslationService).toBeCalledWith('breadcrumb.home', {
+      foo: 'bar',
+    });
+  });
 });

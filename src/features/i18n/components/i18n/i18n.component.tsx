@@ -1,17 +1,15 @@
-import { ComponentProps, ComponentPropsWithoutRef, ElementType } from 'react';
-
-import type { TextKey } from '~/features/i18n/services';
+import { ComponentProps } from 'react';
+import type { DynamicProps } from '~/features/common/types';
+import type { ElementType } from 'react';
 import { useTranslations } from '~/features/i18n/hooks';
 
-interface AsProps<T extends ElementType> {
-  as?: T;
-}
-
-type DynamicProps<T extends ElementType> = AsProps<T> &
-  ComponentPropsWithoutRef<T>;
+type TranslationArguments = Parameters<
+  ReturnType<typeof useTranslations>['getText']
+>;
 
 interface Props {
-  text: TextKey;
+  text: TranslationArguments[0];
+  variables?: TranslationArguments[1];
 }
 
 export function I18n<T extends ElementType>(props: Props & DynamicProps<T>) {
@@ -20,9 +18,9 @@ export function I18n<T extends ElementType>(props: Props & DynamicProps<T>) {
 }
 
 function useViewController(props: ComponentProps<typeof I18n>) {
-  const { text, as = 'span', ...htmlProps } = props;
+  const { text, variables, as = 'span', ...htmlProps } = props;
   const { getText } = useTranslations();
-  const translation = getText(text);
+  const translation = getText(text, variables);
 
   return {
     translation,
