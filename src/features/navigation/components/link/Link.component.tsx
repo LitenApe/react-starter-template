@@ -3,8 +3,11 @@ import { ComponentProps, PropsWithChildren } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { getPathFromAlias } from '~/features/navigation/utility';
 
+type PathArguments = Parameters<typeof getPathFromAlias>;
+
 interface Props {
-  to: string;
+  to: PathArguments[0];
+  variables?: PathArguments[1];
 }
 
 export function Link(props: PropsWithChildren<Props>) {
