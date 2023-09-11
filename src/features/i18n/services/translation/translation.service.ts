@@ -3,7 +3,7 @@ import type { TextKey, Translations } from './domain';
 import { isEmpty, isUndefined } from '~/features/common/utility';
 
 import type { Subscribable } from '~/features/common/types';
-import { replaceTranslationVariables } from '../../utility';
+import { generateI18n } from '~/features/i18n/utility';
 import { request } from '~/features/common/services';
 
 export class TranslationService implements Subscribable<Translations> {
@@ -57,7 +57,7 @@ export class TranslationService implements Subscribable<Translations> {
 
   getTranslation = (
     key: TextKey,
-    variables?: Parameters<typeof replaceTranslationVariables>[1],
+    variables?: Parameters<typeof generateI18n>[1],
   ) => {
     const lang = this.#languageService.getLanguage();
     const translations = this.#translations[lang];
@@ -67,7 +67,7 @@ export class TranslationService implements Subscribable<Translations> {
       return key;
     }
 
-    return replaceTranslationVariables(text, variables);
+    return generateI18n(text, variables);
   };
 
   isValidKey = (key: string): key is TextKey => {

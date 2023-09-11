@@ -1,1 +1,1 @@
-export * from './replace-translation-variables';
+export * from './generate-i18n';

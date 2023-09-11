@@ -1,4 +1,4 @@
-export function replaceTranslationVariables(
+export function generateI18n(
   translation: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   variables: Record<string, any> | undefined = {},
