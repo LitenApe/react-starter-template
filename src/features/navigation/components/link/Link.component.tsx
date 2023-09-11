@@ -1,9 +1,9 @@
 import { ComponentProps, PropsWithChildren } from 'react';
 
 import { Link as RouterLink } from 'react-router-dom';
-import { getPathFromAlias } from '~/features/navigation/utility';
+import { href } from '~/features/navigation/utility';
 
-type PathArguments = Parameters<typeof getPathFromAlias>;
+type PathArguments = Parameters<typeof href>;
 
 interface Props {
   to: PathArguments[0];
@@ -17,7 +17,7 @@ export function Link(props: PropsWithChildren<Props>) {
 
 function useViewController(props: ComponentProps<typeof Link>) {
   const { to, children } = props;
-  const path = getPathFromAlias(to);
+  const path = href(to);
 
   return {
     children,

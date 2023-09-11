@@ -1,7 +1,9 @@
-import { describe, test } from 'vitest';
+import * as routerExports from '~/features/navigation/router';
+
+import { describe, test, vi } from 'vitest';
 
 import { RouteObject } from 'react-router-dom';
-import { getPathFromAlias } from '.';
+import { href } from './href.utility';
 
 const routes: RouteObject[] = [
   {
@@ -32,26 +34,29 @@ const routes: RouteObject[] = [
   },
 ];
 
-describe.concurrent('navigation utility: getPathFromAlias', () => {
+const routesSpy = vi.spyOn(routerExports, 'routes', 'get');
+routesSpy.mockReturnValue(routes);
+
+describe.concurrent('navigation utility: href', () => {
   test('returns valid path for alias', ({ expect }) => {
-    const path = getPathFromAlias('profile', undefined, routes);
+    const path = href('profile', undefined);
     expect(path).toBe('/profile');
   });
 
   test('throws error on invalid alias', ({ expect }) => {
-    expect(() => getPathFromAlias('profile', undefined, [])).toThrow();
+    expect(() => href('invalid', undefined)).toThrow();
   });
 
   test('throws error when processing pathname with missing variables', ({
     expect,
   }) => {
-    expect(() => getPathFromAlias('book', undefined, routes)).toThrowError();
+    expect(() => href('book', undefined)).toThrowError();
   });
 
   test('returns pathname with variables replaced with variables are supplied', ({
     expect,
   }) => {
-    const path = getPathFromAlias('book', { bookid: 1 }, routes);
+    const path = href('book', { bookid: 1 });
     expect(path).toBe('/book/1');
   });
 });
