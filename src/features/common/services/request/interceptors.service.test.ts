@@ -10,7 +10,7 @@ import {
   requestInteceptors,
   responseInterceptors,
 } from './interceptors.service';
-import { beforeEach, describe, test, vi } from 'vitest';
+import { afterAll, beforeEach, describe, test, vi } from 'vitest';
 
 const spyEnv = vi.spyOn(Environment, 'MODE', 'get');
 const mockRequestInterceptor = vi
@@ -18,6 +18,14 @@ const mockRequestInterceptor = vi
   .mockImplementation((url: string, init: RequestInit) => [url, init]);
 
 describe('common service: request interceptor', () => {
+  beforeEach(() => {
+    spyEnv.mockClear();
+  });
+
+  afterAll(() => {
+    spyEnv.mockRestore();
+  });
+
   describe('interceptor helpers', () => {
     beforeEach(() => {
       clearRequestInterceptors();

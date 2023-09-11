@@ -1,11 +1,12 @@
 import { Environment, Mode, request } from '~/features/common/services';
-import { describe, test, vi } from 'vitest';
+import { afterAll, beforeEach, describe, test, vi } from 'vitest';
 
-import { HTTPRecord } from './domain';
+import type { HTTPRecord } from './domain';
 import { HTTPRecordingService } from './index';
 import { RecordsService } from './records.service';
 
 const spyFetch = vi.spyOn(globalThis, 'fetch');
+const spyEnv = vi.spyOn(Environment, 'MODE', 'get');
 
 async function sendHTTPRequest(url = 'http://test.com/skills') {
   const mockResponse = new Response('completed', {
@@ -18,6 +19,16 @@ async function sendHTTPRequest(url = 'http://test.com/skills') {
 }
 
 describe.concurrent('common service: http recording', () => {
+  beforeEach(() => {
+    spyFetch.mockClear();
+    spyEnv.mockClear();
+  });
+
+  afterAll(() => {
+    spyFetch.mockRestore();
+    spyEnv.mockRestore();
+  });
+
   test('records http requests while enabled', async ({ expect }) => {
     const records = new RecordsService<HTTPRecord>();
     const recorder = new HTTPRecordingService(records);
@@ -77,7 +88,6 @@ describe.concurrent('common service: http recording', () => {
   });
 
   test('starts recording on init when Mode is "RECORD"', async ({ expect }) => {
-    const spyEnv = vi.spyOn(Environment, 'MODE', 'get');
     spyEnv.mockReturnValue(Mode.RECORD);
 
     const records = new RecordsService<HTTPRecord>();
@@ -93,7 +103,6 @@ describe.concurrent('common service: http recording', () => {
   });
 
   test('only attach one http listener when enabled', async ({ expect }) => {
-    const spyEnv = vi.spyOn(Environment, 'MODE', 'get');
     spyEnv.mockReturnValue(Mode.RECORD);
 
     const records = new RecordsService<HTTPRecord>();

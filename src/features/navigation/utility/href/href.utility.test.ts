@@ -1,8 +1,8 @@
 import * as routerExports from '~/features/navigation/router';
 
-import { describe, test, vi } from 'vitest';
+import { afterAll, beforeAll, describe, test, vi } from 'vitest';
 
-import { RouteObject } from 'react-router-dom';
+import type { RouteObject } from 'react-router-dom';
 import { href } from './href.utility';
 
 const routes: RouteObject[] = [
@@ -34,10 +34,17 @@ const routes: RouteObject[] = [
   },
 ];
 
-const routesSpy = vi.spyOn(routerExports, 'routes', 'get');
-routesSpy.mockReturnValue(routes);
+const spyRoutes = vi.spyOn(routerExports, 'routes', 'get');
 
 describe.concurrent('navigation utility: href', () => {
+  beforeAll(() => {
+    spyRoutes.mockReturnValue(routes);
+  });
+
+  afterAll(() => {
+    spyRoutes.mockRestore();
+  });
+
   test('returns valid path for alias', ({ expect }) => {
     const path = href('profile', undefined);
     expect(path).toBe('/profile');

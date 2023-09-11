@@ -1,6 +1,6 @@
 import { describe, test } from 'vitest';
 
-import { RouteObject } from 'react-router-dom';
+import type { RouteObject } from 'react-router-dom';
 import { getRouteNames } from './get-route-names.utility';
 
 describe.concurrent('navigation utility: getRouteNames', () => {

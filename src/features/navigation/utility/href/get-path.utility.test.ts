@@ -1,6 +1,6 @@
 import { describe, test } from 'vitest';
 
-import { RouteObject } from 'react-router-dom';
+import type { RouteObject } from 'react-router-dom';
 import { getPath } from './get-path.utility';
 
 const routes: RouteObject[] = [

@@ -1,4 +1,4 @@
-import { beforeEach, describe, test, vi } from 'vitest';
+import { afterAll, beforeEach, describe, test, vi } from 'vitest';
 
 import { request } from './requests.service';
 
@@ -12,6 +12,10 @@ function createHTTPRespone(response: ResponseInit) {
 describe.concurrent('common service: request', () => {
   beforeEach(() => {
     spyFetch.mockClear();
+  });
+
+  afterAll(() => {
+    spyFetch.mockRestore();
   });
 
   test('throws error on unsuccessful request', async ({ expect }) => {

@@ -1,4 +1,4 @@
-import { beforeEach, describe, test, vi } from 'vitest';
+import { afterAll, beforeEach, describe, test, vi } from 'vitest';
 import { cleanup, render, screen } from '@testing-library/react';
 
 import { I18n } from './i18n.component';
@@ -10,6 +10,10 @@ describe.concurrent('i18n component: i18n', () => {
   beforeEach(() => {
     spyTranslationService.mockClear();
     cleanup();
+  });
+
+  afterAll(() => {
+    spyTranslationService.mockRestore();
   });
 
   test('renders without crashing', () => {

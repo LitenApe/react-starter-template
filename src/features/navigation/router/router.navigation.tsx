@@ -1,5 +1,5 @@
 import { RootPage } from '~/features/common/pages';
-import { RouteObject } from 'react-router-dom';
+import type { RouteObject } from 'react-router-dom';
 import { rootAliases } from './aliases.constant';
 import { translationService } from '~/features/i18n/services';
 

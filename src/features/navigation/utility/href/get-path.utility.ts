@@ -1,6 +1,6 @@
 import { assert, isDefined, isUndefined } from '~/features/common/utility';
 
-import { RouteObject } from 'react-router-dom';
+import type { RouteObject } from 'react-router-dom';
 
 export function getPath(routes: RouteObject[], alias: string): string | null {
   return routes.reduce((acc: string | null, cur) => {
