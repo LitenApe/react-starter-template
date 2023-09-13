@@ -11,16 +11,12 @@ import { useTranslationsUtils } from '~/features/i18n/hooks';
 export function Breadcrumb() {
   const { crumbs } = useViewController();
 
-  if (crumbs.length <= 1) {
-    return null;
-  }
-
   return (
     <nav id="breadcrumb">
       <ul>
-        {crumbs.map((crumb) => (
-          <li key={crumb}>
-            <I18n as={Link} to={crumb} text={crumb} />
+        {crumbs.map(({ alias, textKey }) => (
+          <li key={alias}>
+            <I18n as={Link} to={alias} text={textKey} />
           </li>
         ))}
       </ul>
@@ -34,9 +30,12 @@ function useViewController() {
 
   const { isValidKey } = useTranslationsUtils();
   const crumbs = paths
-    .map(routeAliasToTextKey)
+    .map((alias) => {
+      const textKey = routeAliasToTextKey(alias);
+      return !isDefined(textKey) ? null : { alias, textKey };
+    })
     .filter(isDefined)
-    .filter(isValidKey);
+    .filter((crumb) => isValidKey(crumb.textKey));
 
   return { crumbs };
 }

@@ -37,7 +37,7 @@ module.exports = {
           '~/features/common/*',
           '~/features/i18n/*',
           '~/features/navigation/*',
-          '~/features/*/',
+          '~/features/*',
           'public/**/*',
         ],
       },

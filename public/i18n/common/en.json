@@ -1,15 +1,11 @@
 {
-  "breadcrumb.home": "Home",
-  "translation.select.label": "Choose preferred language",
-  "translation.select.option.label.english": "English",
-  "translation.select.option.label.norwegian": "Norsk",
-  "devtool.heading": "Developer Tools",
-  "devtool.table.heading.name": "Name",
-  "devtool.table.heading.action": "Action",
-  "devtool.action.mode.name": "Mode",
-  "devtool.action.recording.name": "Toggle Recording",
-  "devtool.action.recording.action.start": "Start",
-  "devtool.action.recording.action.stop": "Stop",
-  "devtool.action.save.name": "Save Recording",
-  "devtool.action.save.action": "Save"
+  "common.breadcrumb.home": "Home",
+  "common.breadcrumb.profile": "Profile",
+  "common.breadcrumb.settings": "Settings",
+  "common.translation.select.label": "Choose preferred language",
+  "common.translation.select.option.label.english": "English",
+  "common.translation.select.option.label.norwegian": "Norsk",
+  "common.menu.link.home": "Home",
+  "common.menu.link.profile": "Profile",
+  "common.menu.link.settings": "Settings"
 }
