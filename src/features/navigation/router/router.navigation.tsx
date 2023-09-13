@@ -2,7 +2,7 @@ import { RootPage } from '~/features/common/pages';
 import type { RouteObject } from 'react-router-dom';
 import { profileRoutes } from '~/features/profile';
 import { rootAliases } from './aliases.constant';
-import { rootLoader } from '~/features/navigation/loaders';
+import { rootLoader } from '~/features/common/loaders';
 
 export const routes: RouteObject[] = [
   {
