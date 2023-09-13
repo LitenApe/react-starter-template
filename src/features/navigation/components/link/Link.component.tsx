@@ -16,8 +16,8 @@ export function Link(props: PropsWithChildren<Props>) {
 }
 
 function useViewController(props: ComponentProps<typeof Link>) {
-  const { to, children } = props;
-  const path = href(to);
+  const { to, variables, children } = props;
+  const path = href(to, variables);
 
   return {
     children,
