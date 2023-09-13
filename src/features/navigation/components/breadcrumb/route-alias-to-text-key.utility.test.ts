@@ -10,7 +10,7 @@ describe.concurrent(
       const received = routeAliasToTextKey(rootAliases.home);
 
       expect(typeof received).toBe('string');
-      expect(received).toBe('breadcrumb.home');
+      expect(received).toBe('common.breadcrumb.home');
     });
 
     test('returns null on unmapped alias', () => {
