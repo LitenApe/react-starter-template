@@ -1,6 +1,6 @@
 import { Lang, LanguageService } from '~/features/i18n/services';
 import type { TextKey, Translations } from './domain';
-import { isEmpty, isUndefined } from '~/features/common/utility';
+import { isDefined, isUndefined } from '~/features/common/utility';
 
 import type { Subscribable } from '~/features/common/types';
 import { generateI18n } from '~/features/i18n/utility';
@@ -10,7 +10,7 @@ export class TranslationService implements Subscribable<Translations> {
   #languageService: LanguageService;
   #subscribers: ((translations: Translations) => void)[] = [];
 
-  #loaded: string[] = [];
+  #loaded: Record<string, Lang[]> = {};
   #translations: Record<Lang, Translations> = {
     // @ts-expect-error initial state, should be populated through `addTranslations`
     en: {},
@@ -33,16 +33,26 @@ export class TranslationService implements Subscribable<Translations> {
       ...translations,
     };
 
-    if (!this.#loaded.includes(part)) {
-      this.#loaded.push(part);
+    if (isDefined(this.#loaded[part])) {
+      const loadedTranslations = this.#loaded[part];
+
+      if (!loadedTranslations.includes(lang)) {
+        loadedTranslations.push(lang);
+      }
+    } else {
+      this.#loaded[part] = [lang];
     }
   };
 
   #getMissingTranslations = async (lang: Lang) => {
-    if (isEmpty(this.#translations[lang])) {
-      const jobs = this.#loaded.map((part) => this.addTranslation(part, lang));
-      await Promise.all(jobs);
-    }
+    const missing: string[] = Object.keys(this.#loaded).reduce(
+      (acc: string[], part) => {
+        return !this.#loaded[part].includes(lang) ? acc.concat(part) : acc;
+      },
+      [],
+    );
+    const jobs = missing.map((part) => this.addTranslation(part, lang));
+    await Promise.all(jobs);
   };
 
   #updateTranslations = (lang: Lang) => {

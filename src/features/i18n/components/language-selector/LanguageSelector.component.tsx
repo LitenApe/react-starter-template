@@ -10,7 +10,7 @@ export function LanguageSelector() {
 
   return (
     <label>
-      <I18n text="translation.select.label" />
+      <I18n text="common.translation.select.label" />
       <select value={value} onChange={onChange}>
         {options.map(({ value, label }) => (
           <I18n key={value} as="option" text={label} value={value} />
