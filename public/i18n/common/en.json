@@ -7,5 +7,6 @@
   "common.translation.select.option.label.norwegian": "Norsk",
   "common.menu.link.home": "Home",
   "common.menu.link.profile": "Profile",
-  "common.menu.link.settings": "Settings"
+  "common.menu.link.settings": "Settings",
+  "common.menu.link.user": "User"
 }

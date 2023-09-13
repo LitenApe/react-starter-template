@@ -19,6 +19,11 @@ export const profileRoutes: RouteObject[] = [
         path: 'settings',
         lazy: () => import('../pages/Settings.page'),
       },
+      {
+        id: profileAliases.user,
+        path: ':userid',
+        lazy: () => import('../pages/User.page'),
+      },
     ],
   },
 ];

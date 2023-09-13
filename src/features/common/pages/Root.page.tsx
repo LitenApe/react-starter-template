@@ -23,6 +23,9 @@ export function RootPage() {
       <Link to={rootAliases.settings}>
         <I18n text="common.menu.link.settings"></I18n>
       </Link>
+      <Link to={rootAliases.user} variables={{ userid: 2 }}>
+        <I18n text="common.menu.link.user" />
+      </Link>
       <Outlet />
       <DevTools />
     </I18nProvider>
