@@ -1,61 +1,54 @@
-import { Lang, LanguageService } from '~/features/i18n/services';
+import * as commonEn from 'public/i18n/common/en.json';
+import * as commonNb from 'public/i18n/common/nb.json';
+
+import { STORAGE_KEY, TranslationService } from './translation.service';
 import { beforeEach, describe, test, vi } from 'vitest';
 
-import type { MockedFunction } from 'vitest';
-import { TranslationService } from './translation.service';
-import { request } from '~/features/common/services';
+import { Lang } from '~/features/i18n/services';
 import { waitFor } from '@testing-library/react';
 
-vi.mock('~/features/common/services/request', () => ({
-  request: {
-    get: vi.fn().mockResolvedValue({ foo: 'bar' }),
-  },
-}));
-const mockRequest = request.get as MockedFunction<typeof request.get>;
+const spyFetch = vi.spyOn(globalThis, 'fetch');
 
-describe.concurrent('i18n service: translation service', () => {
+describe('i18n service: translation service', () => {
   beforeEach(() => {
-    mockRequest.mockClear();
+    spyFetch.mockClear();
+    spyFetch.mockResolvedValueOnce(new Response(JSON.stringify(commonEn)));
+    localStorage.setItem(STORAGE_KEY, Lang.EN);
   });
 
   test('fetches text part on "addTranslation"', async ({ expect }) => {
-    const languageService = new LanguageService(Lang.EN);
-    const translationService = new TranslationService(languageService);
+    const translationService = new TranslationService();
+    await translationService.init();
     await translationService.addTranslation('common');
 
-    expect(mockRequest).toBeCalledTimes(1);
-    expect(mockRequest).toBeCalledWith('/i18n/common/en.json');
+    expect(spyFetch).toBeCalledTimes(1);
+    expect(spyFetch).toBeCalledWith('/i18n/common/en.json', {});
   });
 
   test('refetch text on language change', async ({ expect }) => {
-    const languageService = new LanguageService(Lang.EN);
-    const translationService = new TranslationService(languageService);
+    const translationService = new TranslationService();
+    await translationService.init();
     await translationService.addTranslation('common');
 
-    mockRequest.mockClear();
+    spyFetch.mockClear();
+    spyFetch.mockResolvedValueOnce(new Response(JSON.stringify(commonNb)));
+    await translationService.changeLanguage(Lang.NB);
 
-    languageService.setLanguage(Lang.NB);
-
-    await waitFor(() => {
-      expect(mockRequest).toBeCalled();
-    });
-
-    expect(mockRequest).toBeCalledTimes(1);
-    expect(mockRequest).toBeCalledWith('/i18n/common/nb.json');
+    expect(spyFetch).toBeCalledTimes(1);
+    expect(spyFetch).toBeCalledWith('/i18n/common/nb.json', {});
   });
 
   test('returns text for key', async ({ expect }) => {
-    const languageService = new LanguageService(Lang.EN);
-    const translationService = new TranslationService(languageService);
+    const translationService = new TranslationService();
+    await translationService.init();
     await translationService.addTranslation('common');
 
-    // @ts-expect-error invalid key due to test data
-    expect(translationService.getTranslation('foo')).toBe('bar');
+    expect(translationService.getTranslation('common.test.key')).toBe('Foo');
   });
 
   test('returns key for unknown key', async ({ expect }) => {
-    const languageService = new LanguageService(Lang.EN);
-    const translationService = new TranslationService(languageService);
+    const translationService = new TranslationService();
+    await translationService.init();
     await translationService.addTranslation('common');
 
     // @ts-expect-error invalid key due to test data
@@ -65,16 +58,15 @@ describe.concurrent('i18n service: translation service', () => {
   });
 
   test('returns "true" on known text key', async ({ expect }) => {
-    const languageService = new LanguageService(Lang.EN);
-    const translationService = new TranslationService(languageService);
+    const translationService = new TranslationService();
+    await translationService.init();
     await translationService.addTranslation('common');
 
-    expect(translationService.isValidKey('foo')).toBe(true);
+    expect(translationService.isValidKey('common.test.key')).toBe(true);
   });
 
   test('returns "false" on unknown text key', ({ expect }) => {
-    const languageService = new LanguageService(Lang.EN);
-    const translationService = new TranslationService(languageService);
+    const translationService = new TranslationService();
 
     expect(translationService.isValidKey('unknown-key')).toBe(false);
   });
@@ -82,54 +74,47 @@ describe.concurrent('i18n service: translation service', () => {
   test('subscriber is notified of the current translations on registration', async ({
     expect,
   }) => {
-    const languageService = new LanguageService(Lang.EN);
-    const translationService = new TranslationService(languageService);
+    const translationService = new TranslationService();
+    await translationService.init();
     await translationService.addTranslation('common');
+
     const mockSubscriber = vi.fn();
 
     translationService.subscribe(mockSubscriber);
 
-    expect(mockSubscriber).toBeCalledTimes(1);
-    expect(mockSubscriber).toBeCalledWith({ foo: 'bar' });
+    expect(mockSubscriber).toBeCalled();
   });
 
   test('subscriber is notified of the new translations on language change', async ({
     expect,
   }) => {
-    const languageService = new LanguageService(Lang.EN);
-    const translationService = new TranslationService(languageService);
+    const translationService = new TranslationService();
+    await translationService.init();
     await translationService.addTranslation('common');
     const mockSubscriber = vi.fn();
 
     translationService.subscribe(mockSubscriber);
     mockSubscriber.mockClear();
 
-    languageService.setLanguage(Lang.NB);
+    await translationService.changeLanguage(Lang.NB);
 
     await waitFor(() => {
       expect(mockSubscriber).toBeCalled();
     });
-
-    expect(mockSubscriber).toBeCalledTimes(1);
-    expect(mockSubscriber).toBeCalledWith({ foo: 'bar' });
   });
 
   test('subscriber is not notified after unsubscribing', async ({ expect }) => {
-    const languageService = new LanguageService(Lang.EN);
-    const translationService = new TranslationService(languageService);
+    const translationService = new TranslationService();
+    await translationService.init();
     await translationService.addTranslation('common');
     const mockSubscriber = vi.fn();
 
     translationService.subscribe(mockSubscriber);
     translationService.unsubscribe(mockSubscriber);
     mockSubscriber.mockClear();
-    mockRequest.mockClear();
+    spyFetch.mockClear();
 
-    languageService.setLanguage(Lang.NB);
-
-    await waitFor(() => {
-      expect(mockRequest).toBeCalled();
-    });
+    await translationService.changeLanguage(Lang.NB);
 
     expect(mockSubscriber).toBeCalledTimes(0);
   });

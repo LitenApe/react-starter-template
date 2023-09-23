@@ -12,9 +12,9 @@ export function useLanguage() {
     `"useLanguage" must be wrapped by a ${I18nProvider.name}`,
   );
 
-  const { languageService } = ctx;
+  const { translationService } = ctx;
   return {
-    setLanguage: languageService.setLanguage,
-    getLanguage: languageService.getLanguage,
+    setLanguage: translationService.changeLanguage,
+    getLanguage: translationService.getLanguage,
   };
 }

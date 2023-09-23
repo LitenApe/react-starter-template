@@ -1,4 +1,5 @@
 {
+  "common.test.key": "Foo",
   "common.breadcrumb.home": "Hjem",
   "common.breadcrumb.profile": "Profil",
   "common.breadcrumb.settings": "Instillinger",

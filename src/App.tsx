@@ -6,8 +6,8 @@ import {
 import { useEffect, useState } from 'react';
 
 import { isNull } from '~/features/common/utility';
-import { languageService } from '~/features/i18n/services';
 import { routes } from '~/features/navigation/router';
+import { translationService } from '~/features/i18n/services';
 
 export function App() {
   const { router } = useViewController();
@@ -22,8 +22,10 @@ export function App() {
 async function appStartup() {
   httpRecordingService.init();
 
+  await translationService.init();
+
   const config = await configurations.load();
-  languageService.setPreferredLanguage(config['default.language']);
+  await translationService.setDefaultLanguage(config['default.language']);
 }
 
 function appCleanup() {

@@ -33,19 +33,21 @@ module.exports = {
       'error',
       {
         allow: [
-          'react-dom/*',
+          '~/features/*',
           '~/features/common/*',
           '~/features/i18n/*',
           '~/features/navigation/*',
-          '~/features/*',
+          'msw/*',
           'public/**/*',
+          'react-dom/*',
         ],
       },
     ],
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
-        varsIgnorePattern: '_*',
+        varsIgnorePattern: '^_',
+        argsIgnorePattern: '^_',
       },
     ],
     'no-console': ['error', { allow: ['warn', 'error'] }],

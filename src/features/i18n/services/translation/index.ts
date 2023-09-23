@@ -1,6 +1,6 @@
 import { TranslationService } from './translation.service';
-import { languageService } from '~/features/i18n/services';
 
-export const translationService = new TranslationService(languageService);
+export const translationService = new TranslationService();
 export { TranslationService };
+export { Lang } from './domain';
 export type { TextKey } from './domain';

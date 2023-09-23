@@ -17,7 +17,7 @@ describe.concurrent('i18n component: i18n', () => {
   });
 
   test('renders without crashing', () => {
-    render(<I18n text="breadcrumb.home" />);
+    render(<I18n text="common.breadcrumb.home" />);
   });
 
   test('renders text key on unknown key', ({ expect }) => {
@@ -30,14 +30,14 @@ describe.concurrent('i18n component: i18n', () => {
 
   test('renders requested text for text key', ({ expect }) => {
     spyTranslationService.mockReturnValueOnce('home');
-    render(<I18n text="breadcrumb.home" data-testid="text-container" />);
+    render(<I18n text="common.breadcrumb.home" data-testid="text-container" />);
 
     const el = screen.getByTestId('text-container');
     expect(el.textContent).toBe('home');
   });
 
   test('renders text container as "span" by default', ({ expect }) => {
-    render(<I18n text="breadcrumb.home" data-testid="text-container" />);
+    render(<I18n text="common.breadcrumb.home" data-testid="text-container" />);
 
     const el = screen.getByTestId('text-container');
     expect(el.nodeName).toBe('SPAN');
@@ -45,7 +45,11 @@ describe.concurrent('i18n component: i18n', () => {
 
   test('renders text container as requested node', ({ expect }) => {
     render(
-      <I18n as="button" text="breadcrumb.home" data-testid="text-container" />,
+      <I18n
+        as="button"
+        text="common.breadcrumb.home"
+        data-testid="text-container"
+      />,
     );
 
     const el = screen.getByTestId('text-container');
@@ -55,10 +59,10 @@ describe.concurrent('i18n component: i18n', () => {
   test('calls "translationService.getTranslation" with supplied key and variables', ({
     expect,
   }) => {
-    render(<I18n text="breadcrumb.home" variables={{ foo: 'bar' }} />);
+    render(<I18n text="common.breadcrumb.home" variables={{ foo: 'bar' }} />);
 
     expect(spyTranslationService).toBeCalledTimes(1);
-    expect(spyTranslationService).toBeCalledWith('breadcrumb.home', {
+    expect(spyTranslationService).toBeCalledWith('common.breadcrumb.home', {
       foo: 'bar',
     });
   });

@@ -1,96 +1,93 @@
-import { Lang, LanguageService } from '~/features/i18n/services';
-import type { TextKey, Translations } from './domain';
-import { isDefined, isUndefined } from '~/features/common/utility';
+import { Environment, Mode } from '~/features/common/services';
+import type { TextKey, TextOptions, Translations } from './domain';
 
+import Backend from 'i18next-fetch-backend';
+import { Lang } from './domain';
 import type { Subscribable } from '~/features/common/types';
-import { generateI18n } from '~/features/i18n/utility';
-import { request } from '~/features/common/services';
+import i18next from 'i18next';
+import { isUndefined } from '~/features/common/utility';
+
+export const STORAGE_KEY = 'PREFERRED_LANG';
 
 export class TranslationService implements Subscribable<Translations> {
-  #languageService: LanguageService;
   #subscribers: ((translations: Translations) => void)[] = [];
 
-  #loaded: Record<string, Lang[]> = {};
-  #translations: Record<Lang, Translations> = {
-    // @ts-expect-error initial state, should be populated through `addTranslations`
-    en: {},
-    // @ts-expect-error initial state, should be populated through `addTranslations`
-    nb: {},
+  init = async () => {
+    await i18next.use(Backend).init({
+      debug: Environment.MODE === Mode.DEV,
+      fallbackLng: false,
+      supportedLngs: Object.values(Lang),
+      load: 'currentOnly',
+      defaultNS: false,
+      ns: [],
+      keySeparator: false,
+      backend: {
+        loadPath: '/i18n/{{ns}}/{{lng}}.json',
+        fetch: globalThis.fetch,
+      },
+    });
+
+    const lang = localStorage.getItem(STORAGE_KEY);
+    const validLangs = Object.values(Lang) as (string | null)[];
+    if (validLangs.includes(lang)) {
+      await this.changeLanguage(lang as Lang);
+    }
+
+    i18next.on('loaded', this.#notify);
+    i18next.on('languageChanged', this.#notify);
   };
 
-  constructor(languageService: LanguageService) {
-    this.#languageService = languageService;
-    languageService.subscribe(this.#updateTranslations);
-  }
+  addTranslation = async (part: string) => {
+    await i18next.loadNamespaces(part);
+    this.#notify();
+  };
 
-  addTranslation = async (part: string, language?: Lang) => {
-    const lang = language ?? this.#languageService.getLanguage();
-    const translations = await request.get<Translations>(
-      `/i18n/${part}/${lang}.json`,
-    );
-    this.#translations[lang] = {
-      ...this.#translations[lang],
-      ...translations,
-    };
+  getLanguage = () => {
+    return i18next.language as Lang;
+  };
 
-    if (isDefined(this.#loaded[part])) {
-      const loadedTranslations = this.#loaded[part];
-
-      if (!loadedTranslations.includes(lang)) {
-        loadedTranslations.push(lang);
-      }
-    } else {
-      this.#loaded[part] = [lang];
+  setDefaultLanguage = async (lang: Lang) => {
+    if (isUndefined(i18next.language)) {
+      await this.changeLanguage(lang);
     }
   };
 
-  #getMissingTranslations = async (lang: Lang) => {
-    const missing: string[] = Object.keys(this.#loaded).reduce(
-      (acc: string[], part) => {
-        return !this.#loaded[part].includes(lang) ? acc.concat(part) : acc;
-      },
-      [],
-    );
-    const jobs = missing.map((part) => this.addTranslation(part, lang));
-    await Promise.all(jobs);
+  changeLanguage = async (lang: Lang) => {
+    localStorage.setItem(STORAGE_KEY, lang);
+    await i18next.changeLanguage(lang);
   };
 
-  #updateTranslations = (lang: Lang) => {
-    this.#getMissingTranslations(lang)
-      .catch(() => {
-        console.error('Unable to update translations!');
-      })
-      .finally(() => {
-        this.#notify(this.#translations[lang]);
-      });
-  };
+  getTranslation = (key: TextKey, variables?: TextOptions) => {
+    let ns = key.split('.')[0];
 
-  getTranslation = (
-    key: TextKey,
-    variables?: Parameters<typeof generateI18n>[1],
-  ) => {
-    const lang = this.#languageService.getLanguage();
-    const translations = this.#translations[lang];
-    const text = translations[key];
+    // there a nested namespace called 'default' during test for some reason
+    if (Environment.MODE === Mode.TEST) {
+      ns = `${ns}:default`;
+    }
 
-    if (isUndefined(text)) {
+    if (!this.isValidKey(key)) {
       return key;
     }
 
-    return generateI18n(text, variables);
+    return i18next.t(`${ns}:${key}`, variables);
   };
 
   isValidKey = (key: string): key is TextKey => {
-    const lang = this.#languageService.getLanguage();
-    const translations = this.#translations[lang];
-    return key in translations;
+    let ns = key.split('.')[0];
+
+    // there a nested namespace called 'default' during test for some reason
+    if (Environment.MODE === Mode.TEST) {
+      ns = `${ns}:default`;
+    }
+
+    return i18next.exists(`${ns}:${key}`);
   };
 
   subscribe = (callback: (translations: Translations) => void) => {
     this.#subscribers.push(callback);
 
-    const lang = this.#languageService.getLanguage();
-    const translations = this.#translations[lang];
+    const lang = this.getLanguage();
+    const translations = i18next.getDataByLanguage(lang) as Translations;
     callback(translations);
   };
 
@@ -98,7 +95,10 @@ export class TranslationService implements Subscribable<Translations> {
     this.#subscribers = this.#subscribers.filter((cb) => cb !== callback);
   };
 
-  #notify = (translations: Translations) => {
+  #notify = () => {
+    const lang = this.getLanguage();
+    const translations = i18next.getDataByLanguage(lang) as Translations;
+
     this.#subscribers.map((cb) => {
       cb(translations);
     });
