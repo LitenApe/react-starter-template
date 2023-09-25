@@ -58,12 +58,7 @@ export class TranslationService implements Subscribable<Translations> {
   };
 
   getTranslation = (key: TextKey, variables?: TextOptions) => {
-    let ns = key.split('.')[0];
-
-    // there a nested namespace called 'default' during test for some reason
-    if (Environment.MODE === Mode.TEST) {
-      ns = `${ns}:default`;
-    }
+    const ns = key.split('.')[0];
 
     if (!this.isValidKey(key)) {
       return key;
@@ -73,13 +68,7 @@ export class TranslationService implements Subscribable<Translations> {
   };
 
   isValidKey = (key: string): key is TextKey => {
-    let ns = key.split('.')[0];
-
-    // there a nested namespace called 'default' during test for some reason
-    if (Environment.MODE === Mode.TEST) {
-      ns = `${ns}:default`;
-    }
-
+    const ns = key.split('.')[0];
     return i18next.exists(`${ns}:${key}`);
   };
 

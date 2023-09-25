@@ -1,10 +1,9 @@
-import * as commonEn from 'public/i18n/common/en.json';
-import * as commonNb from 'public/i18n/common/nb.json';
-
 import { STORAGE_KEY, TranslationService } from './translation.service';
 import { beforeEach, describe, test, vi } from 'vitest';
 
 import { Lang } from '~/features/i18n/services';
+import commonEn from 'public/i18n/common/en.json';
+import commonNb from 'public/i18n/common/nb.json';
 import { waitFor } from '@testing-library/react';
 
 const spyFetch = vi.spyOn(globalThis, 'fetch');
