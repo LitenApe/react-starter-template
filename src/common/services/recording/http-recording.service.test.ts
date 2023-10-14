@@ -1,4 +1,4 @@
-import { Environment, Mode, request } from '~/features/common/services';
+import { Environment, Mode, request } from '~/common/services';
 import { afterAll, beforeEach, describe, test, vi } from 'vitest';
 
 import type { HTTPRecord } from './domain';

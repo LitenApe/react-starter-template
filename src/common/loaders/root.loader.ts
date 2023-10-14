@@ -1,4 +1,4 @@
-import { Environment } from '~/features/common/services';
+import { Environment } from '~/common/services';
 import { translationService } from '~/features/i18n/services';
 
 export async function rootLoader() {

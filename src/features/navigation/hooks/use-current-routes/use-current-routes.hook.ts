@@ -1,4 +1,4 @@
-import { assert, isNull } from '~/features/common/utility';
+import { assert, isNull } from '~/common/utility';
 import { matchRoutes, useLocation } from 'react-router-dom';
 
 import { routes } from '~/features/navigation/router';

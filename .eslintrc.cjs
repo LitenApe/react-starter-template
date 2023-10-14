@@ -33,8 +33,8 @@ module.exports = {
       'error',
       {
         allow: [
+          '~/common/*',
           '~/features/*',
-          '~/features/common/*',
           '~/features/i18n/*',
           '~/features/navigation/*',
           'msw/*',

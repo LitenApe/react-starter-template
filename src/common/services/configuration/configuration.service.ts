@@ -1,7 +1,7 @@
-import { assert, isNull } from '~/features/common/utility';
+import { assert, isNull } from '~/common/utility';
 
 import type { Config } from './domain';
-import { request } from '~/features/common/services';
+import { request } from '~/common/services';
 
 export class ConfigurationService {
   #config: Config | null = null;

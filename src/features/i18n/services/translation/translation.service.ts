@@ -1,11 +1,11 @@
-import { Environment, Mode } from '~/features/common/services';
+import { Environment, Mode } from '~/common/services';
 import type { TextKey, TextOptions, Translations } from './domain';
 
 import Backend from 'i18next-fetch-backend';
 import { Lang } from './domain';
-import type { Subscribable } from '~/features/common/types';
+import type { Subscribable } from '~/common/types';
 import i18next from 'i18next';
-import { isUndefined } from '~/features/common/utility';
+import { isUndefined } from '~/common/utility';
 
 export const STORAGE_KEY = 'PREFERRED_LANG';
 

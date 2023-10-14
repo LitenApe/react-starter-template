@@ -1,4 +1,4 @@
-import { HTTPRecordingService } from '~/features/common/services';
+import { HTTPRecordingService } from '~/common/services';
 import { createContext } from 'react';
 
 interface HTTPRecordingContext {

@@ -4,7 +4,7 @@ import { describe, test, vi } from 'vitest';
 
 import { ConfigurationService } from './configuration.service';
 
-vi.mock('~/features/common/services/request', () => ({
+vi.mock('~/common/services/request', () => ({
   request: {
     get: vi.fn().mockResolvedValue(config),
   },

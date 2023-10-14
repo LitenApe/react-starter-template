@@ -1,6 +1,6 @@
-import { Environment } from '~/features/common/services';
+import { Environment } from '~/common/services';
 import { HTTPRecording } from './HTTPRecording.component';
-import { HTTPRecordingProvider } from '~/features/common/components';
+import { HTTPRecordingProvider } from '~/common/components';
 import { I18n } from '~/features/i18n/components';
 
 export function DevTools() {

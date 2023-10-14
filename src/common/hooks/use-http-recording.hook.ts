@@ -1,9 +1,9 @@
-import { Environment, Mode } from '~/features/common/services';
-import { assert, isNull } from '~/features/common/utility';
+import { Environment, Mode } from '~/common/services';
+import { assert, isNull } from '~/common/utility';
 import { useCallback, useContext, useState } from 'react';
 
-import { HTTPRecordingProvider } from '~/features/common/components';
-import { httpRecordingContext } from '~/features/common/contexts';
+import { HTTPRecordingProvider } from '~/common/components';
+import { httpRecordingContext } from '~/common/contexts';
 
 export function useHTTPRecording() {
   const ctx = useContext(httpRecordingContext);

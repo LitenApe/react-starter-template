@@ -5,7 +5,7 @@ import {
   LanguageSelector,
 } from '~/features/i18n/components';
 
-import { DevTools } from '~/features/common/components';
+import { DevTools } from '~/common/components';
 import { Outlet } from 'react-router-dom';
 import { rootAliases } from '~/features/navigation/router';
 

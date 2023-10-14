@@ -1,4 +1,4 @@
-import { assert, isNull } from '~/features/common/utility';
+import { assert, isNull } from '~/common/utility';
 
 import { generatePath } from 'react-router-dom';
 import { getPath } from './get-path.utility';

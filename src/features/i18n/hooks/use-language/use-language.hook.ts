@@ -1,4 +1,4 @@
-import { assert, isNull } from '~/features/common/utility';
+import { assert, isNull } from '~/common/utility';
 
 import { I18nProvider } from '~/features/i18n/components';
 import { translationsContext } from '~/features/i18n/contexts';

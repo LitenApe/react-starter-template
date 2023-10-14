@@ -1,5 +1,5 @@
 import { ComponentProps } from 'react';
-import type { DynamicProps } from '~/features/common/types';
+import type { DynamicProps } from '~/common/types';
 import type { ElementType } from 'react';
 import { useTranslations } from '~/features/i18n/hooks';
 

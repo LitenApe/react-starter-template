@@ -1,8 +1,8 @@
-import { RootPage } from '~/features/common/pages';
+import { RootPage } from '~/common/pages';
 import type { RouteObject } from 'react-router-dom';
 import { profileRoutes } from '~/features/profile';
 import { rootAliases } from './aliases.constant';
-import { rootLoader } from '~/features/common/loaders';
+import { rootLoader } from '~/common/loaders';
 
 export const routes: RouteObject[] = [
   {

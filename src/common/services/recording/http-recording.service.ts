@@ -4,7 +4,7 @@ import {
   ResponseInterceptor,
   addResponseInterceptor,
   removeResponseInterceptor,
-} from '~/features/common/services';
+} from '~/common/services';
 
 import type { HTTPRecord } from './domain';
 import { RecordsService } from './records.service';

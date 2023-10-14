@@ -1,5 +1,5 @@
 import { I18n } from '~/features/i18n/components';
-import { useHTTPRecording } from '~/features/common/hooks';
+import { useHTTPRecording } from '~/common/hooks';
 
 export function HTTPRecording() {
   const { isRecording, toggleRecording, saveRecording } = useViewController();

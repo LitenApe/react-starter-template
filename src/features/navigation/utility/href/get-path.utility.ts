@@ -1,4 +1,4 @@
-import { assert, isDefined, isUndefined } from '~/features/common/utility';
+import { assert, isDefined, isUndefined } from '~/common/utility';
 
 import type { RouteObject } from 'react-router-dom';
 

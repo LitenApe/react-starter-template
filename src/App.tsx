@@ -1,11 +1,8 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import {
-  configurations,
-  httpRecordingService,
-} from '~/features/common/services';
+import { configurations, httpRecordingService } from '~/common/services';
 import { useEffect, useState } from 'react';
 
-import { isNull } from '~/features/common/utility';
+import { isNull } from '~/common/utility';
 import { routes } from '~/features/navigation/router';
 import { translationService } from '~/features/i18n/services';
 
