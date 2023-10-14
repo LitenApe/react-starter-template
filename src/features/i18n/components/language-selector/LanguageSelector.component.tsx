@@ -25,9 +25,14 @@ function useViewController() {
   const [value, setValue] = useState(getLanguage());
 
   function onChange(event: ChangeEvent<HTMLSelectElement>) {
-    const value = event.target.value as Lang;
-    setLanguage(value);
-    setValue(value);
+    const lang = event.target.value as Lang;
+    setLanguage(lang)
+      .then(() => {
+        setValue(lang);
+      })
+      .catch(() => {
+        setValue(value);
+      });
   }
 
   const options = Object.values(Lang).map((lang) => ({
