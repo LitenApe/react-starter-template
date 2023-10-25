@@ -1,4 +1,4 @@
-import { HTTPRespone } from './http-response.service';
+import { HTTPResponse } from './http-response.service';
 
 export type HTTPRequest = Request;
 
@@ -8,5 +8,5 @@ export type RequestInterceptor = (
 ) => Promise<[string, RequestInit]> | [string, RequestInit];
 
 export type ResponseInterceptor = (
-  res: HTTPRespone,
-) => Promise<HTTPRespone> | HTTPRespone;
+  res: HTTPResponse,
+) => Promise<HTTPResponse> | HTTPResponse;

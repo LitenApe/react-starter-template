@@ -6,7 +6,7 @@ function transformBody(body: string) {
   }
 }
 
-export class HTTPRespone extends Response {
+export class HTTPResponse extends Response {
   data: unknown;
   request: Request;
 
@@ -23,6 +23,6 @@ export class HTTPRespone extends Response {
 
   static factory = async (req: Request, res: Response) => {
     const body = await res.text();
-    return new HTTPRespone(body, req, res);
+    return new HTTPResponse(body, req, res);
   };
 }

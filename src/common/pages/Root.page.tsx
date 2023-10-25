@@ -8,12 +8,21 @@ import {
 import { DevTools } from '~/common/components';
 import { Outlet } from 'react-router-dom';
 import { rootAliases } from '~/features/navigation/router';
+import { useNavigate } from '~/features/navigation/hooks';
 
 export function RootPage() {
+  const go = useNavigate();
+
   return (
     <I18nProvider>
       <LanguageSelector />
       <Breadcrumb />
+      <button onClick={() => {
+          go(rootAliases.user, { userid: 2 })
+        }}
+      >
+        click me
+      </button>
       <Link to={rootAliases.home}>
         <I18n text="common.menu.link.home" />
       </Link>

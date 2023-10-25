@@ -1,7 +1,7 @@
 import { Environment, Mode } from '~/common/services';
 import type { RequestInterceptor, ResponseInterceptor } from './domain';
 
-import { HTTPRespone } from './http-response.service';
+import { HTTPResponse } from './http-response.service';
 
 export let requestInteceptors: RequestInterceptor[] = [];
 export let responseInterceptors: ResponseInterceptor[] = [];
@@ -56,7 +56,7 @@ export async function prepareRequest(
 }
 
 export async function prepareResponse(req: Request, res: Response) {
-  const response = await HTTPRespone.factory(req, res);
+  const response = await HTTPResponse.factory(req, res);
 
   return responseInterceptors.reduce(async (acc, interceptor) => {
     const accumulator = await acc;
