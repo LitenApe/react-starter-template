@@ -29,6 +29,14 @@ async function fetch<R>(
   config: HTTPRequestConfig,
 ) {
   const [reqUrl, reqConfig] = prepareRequest(url, config);
+
+  if (['post', 'put'].includes(method)) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const { data, ...requestConfig } = reqConfig;
+    const response = await axios[method]<R>(reqUrl, data, requestConfig);
+    return response.data;
+  }
+
   const response = await axios[method]<R>(reqUrl, reqConfig);
   return response.data;
 }
