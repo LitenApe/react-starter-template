@@ -1,9 +1,9 @@
-export { request } from './requests.service';
 export {
+  request,
   addRequestInterceptor,
   removeRequestInterceptor,
   addResponseInterceptor,
   removeResponseInterceptor,
-} from './interceptors.service';
+} from './requests.service';
 
-export type { RequestInterceptor, ResponseInterceptor } from './domain';
+export type { HTTPResponse } from './domain';

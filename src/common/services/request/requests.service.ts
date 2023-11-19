@@ -1,37 +1,71 @@
-import { prepareRequest, prepareResponse } from './interceptors.service';
+import { Environment, Mode } from '~/common/services';
+import type {
+  HTTPMethod,
+  HTTPRequestConfig,
+  HTTPRequestInterceptor,
+  HTTPResponseInterceptor,
+} from './domain';
 
-async function fetch<R>(url: string, config: RequestInit = {}) {
-  const [reqUrl, reqConfig] = await prepareRequest(url, config);
+import axios from 'axios';
 
-  const req = new Request(reqUrl, reqConfig);
-  const res = await globalThis.fetch(req);
-  const response = await prepareResponse(req, res);
-
-  if (!response.ok) {
-    throw new Error(response.statusText);
+function prepareRequest(
+  url: string,
+  config: HTTPRequestConfig,
+): [string, HTTPRequestConfig] {
+  if (Environment.MODE === Mode.OFFLINE) {
+    config.headers = {
+      ...config.headers,
+      [Environment.OFFLINE_HEADER]: url,
+    };
+    return [Environment.OFFLINE_PREFIX, config];
   }
 
-  return response.data as R;
+  return [url, config];
 }
 
-type HTTPMethod =
-  | 'get'
-  | 'head'
-  | 'post'
-  | 'put'
-  | 'patch'
-  | 'delete'
-  | 'options';
+async function fetch<R>(
+  method: HTTPMethod,
+  url: string,
+  config: HTTPRequestConfig,
+) {
+  const [reqUrl, reqConfig] = prepareRequest(url, config);
+  const response = await axios[method]<R>(reqUrl, reqConfig);
+  return response.data;
+}
 
 const handlers = {
   get(_: unknown, method: HTTPMethod) {
-    return (url: string, config?: RequestInit) => {
-      return fetch(url, { method, ...config });
+    return (url: string, config: HTTPRequestConfig = {}) => {
+      return fetch(method, url, config);
     };
   },
 };
 
 export const request = new Proxy({}, handlers) as Record<
   HTTPMethod,
-  typeof fetch
+  <R>(url: string, config?: HTTPRequestConfig) => Promise<R>
 >;
+
+export const addRequestInterceptor: HTTPRequestInterceptor = (
+  onFulfilled,
+  onRejected,
+  options,
+) => {
+  return axios.interceptors.request.use(onFulfilled, onRejected, options);
+};
+
+export function removeRequestInterceptor(interceptor: number) {
+  axios.interceptors.request.eject(interceptor);
+}
+
+export const addResponseInterceptor: HTTPResponseInterceptor = (
+  onFulfilled,
+  onRejected,
+  options,
+) => {
+  return axios.interceptors.response.use(onFulfilled, onRejected, options);
+};
+
+export function removeResponseInterceptor(interceptor: number) {
+  axios.interceptors.response.eject(interceptor);
+}

@@ -8,4 +8,5 @@ export {
   removeRequestInterceptor,
   removeResponseInterceptor,
 } from './request';
-export type { RequestInterceptor, ResponseInterceptor } from './request';
+
+export type { HTTPResponse } from './request';

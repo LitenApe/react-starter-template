@@ -1,12 +1,23 @@
-import { HTTPResponse } from './http-response.service';
+import type {
+  AxiosInterceptorManager,
+  AxiosRequestConfig,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from 'axios';
 
-export type HTTPRequest = Request;
+export type HTTPMethod =
+  | 'get'
+  | 'head'
+  | 'post'
+  | 'put'
+  | 'patch'
+  | 'delete'
+  | 'options';
 
-export type RequestInterceptor = (
-  url: string,
-  config: RequestInit,
-) => Promise<[string, RequestInit]> | [string, RequestInit];
+export type HTTPResponse = AxiosResponse;
+export type HTTPRequestConfig = AxiosRequestConfig;
 
-export type ResponseInterceptor = (
-  res: HTTPResponse,
-) => Promise<HTTPResponse> | HTTPResponse;
+export type HTTPRequestInterceptor =
+  AxiosInterceptorManager<InternalAxiosRequestConfig>['use'];
+export type HTTPResponseInterceptor =
+  AxiosInterceptorManager<AxiosResponse>['use'];
