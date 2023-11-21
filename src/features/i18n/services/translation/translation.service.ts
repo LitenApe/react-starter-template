@@ -1,7 +1,7 @@
 import { Environment, Mode } from '~/common/services';
 import type { TextKey, TextOptions, Translations } from './domain';
 
-import Backend from 'i18next-fetch-backend';
+import { AxiosBackend } from '~/features/i18n/services';
 import { Lang } from './domain';
 import type { Subscribable } from '~/common/types';
 import i18next from 'i18next';
@@ -13,7 +13,7 @@ export class TranslationService implements Subscribable<Translations> {
   #subscribers: ((translations: Translations) => void)[] = [];
 
   init = async () => {
-    await i18next.use(Backend).init({
+    await i18next.use(AxiosBackend).init({
       debug: Environment.MODE === Mode.DEV,
       fallbackLng: false,
       supportedLngs: Object.values(Lang),
@@ -23,7 +23,6 @@ export class TranslationService implements Subscribable<Translations> {
       keySeparator: false,
       backend: {
         loadPath: '/i18n/{{ns}}/{{lng}}.json',
-        fetch: globalThis.fetch,
       },
     });
 

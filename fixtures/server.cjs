@@ -10,17 +10,19 @@ const records = JSON.parse(filecontent);
 const server = Fastify({});
 
 server.all('/*', (request, reply) => {
-  const resource = request.headers['app-resource-request'];
-  const method = request.method;
+  const resource = request.headers[ 'app-resource-request' ];
+  const method = request.method.toLocaleLowerCase();
 
-  const record = records[resource];
+  const record = records[ resource ];
+
+  console.log('Retriving', method, resource);
 
   if (resource === undefined || record === undefined) {
     console.warn('Attempted to retrieve unknown record on', resource);
     return reply.status(400).send();
   }
 
-  const httpRecord = record[method];
+  const httpRecord = record[ method ];
 
   if (httpRecord === undefined) {
     console.warn('Attempted to retrieve record of unknown http method', method);
@@ -32,9 +34,9 @@ server.all('/*', (request, reply) => {
 
 const start = async () => {
   try {
-    await server.listen({ port: 53242 });
+    await server.listen({ port: 13142 });
   } catch (err) {
-    server.log.error(err);
+    console.error(err);
     process.exit(1);
   }
 };

@@ -29,7 +29,7 @@ export class HTTPRecordingService {
 
       this.#recorder.addEntry(key, {
         ...entry,
-        [method]: {
+        [method.toLocaleLowerCase()]: {
           data: response.data as HTTPRecord,
           status: response.status,
         },

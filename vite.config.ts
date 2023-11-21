@@ -35,7 +35,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/offline': {
-        target: 'http://localhost:53242',
+        target: 'http://localhost:13142',
         changeOrigin: true,
         rewrite: (path) => path.replace('/offline', ''),
       },
